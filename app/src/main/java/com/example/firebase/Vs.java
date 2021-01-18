@@ -41,7 +41,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         btngoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Vs.this, Waiting.class));
+
             }
         });
         streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager()

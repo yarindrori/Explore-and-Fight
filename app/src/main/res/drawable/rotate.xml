@@ -11,9 +11,6 @@
             android:centerY="0.5"
             android:type="sweep"
             android:useLevel="false"/>
-
-
-
     </shape>
 
 </rotate>
