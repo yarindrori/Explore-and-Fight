@@ -41,8 +41,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         btngoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Vs.this, Homescreen.class));
-                finish();
+                startActivity(new Intent(Vs.this, Waiting.class));
             }
         });
         streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager()
@@ -52,6 +51,10 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         if (savedInstanceState != null)
             streetViewBundle = savedInstanceState.getBundle(STREET_VIEW_BUNDLE);
         streetViewPanoramaFragment.onCreate(streetViewBundle);
+    }
+    @Override
+    public void onBackPressed() {
+
     }
     @Override
     protected void onResume() {
