@@ -22,4 +22,8 @@ public class odotproject extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 }

@@ -32,7 +32,7 @@
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginBottom="142dp"
-        android:text="הפרויקט בשם 'Explore and fight' הוא תהיה מעין משחק אונליין בו נדרשים 2 שחקנים לענות על השאלה שמופיעה. (השאלות יהיו בקשר למקומות בעולם, ואזורים מפורסמים)."
+        android:text="הפרויקט בשם 'Explore and fight' יהיה מעין משחק אונליין בו נדרשים 2 שחקנים לענות על השאלה שמופיעה. (השאלות יהיו בקשר למקומות בעולם, ואזורים מפורסמים)."
         android:textColor="@color/black"
         android:textSize="34sp" />
 

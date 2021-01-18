@@ -70,6 +70,10 @@ public class Homescreen extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 
 
 }

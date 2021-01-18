@@ -29,6 +29,7 @@ public class confirmlogout extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         confirm_logout.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if(user != null) {
@@ -50,6 +51,11 @@ public class confirmlogout extends AppCompatActivity {
                 finish();
             }
         });
+
+
+    }
+    @Override
+    public void onBackPressed() {
 
     }
 }

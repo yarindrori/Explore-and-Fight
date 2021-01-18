@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.odot, menu);
         return true;
     }
+    @Override
+    public void onBackPressed() {
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
