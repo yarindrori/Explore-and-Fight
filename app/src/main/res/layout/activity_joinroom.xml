@@ -8,6 +8,21 @@
     android:background="@drawable/unnamed"
     >
 
+    <TextView
+        android:id="@+id/join_info"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginBottom="405dp"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="38sp"
+        android:textStyle="bold" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button5"
         android:layout_width="178dp"

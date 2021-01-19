@@ -29,6 +29,7 @@ public class Waiting extends AppCompatActivity {
     private Button cancel;
     private TextView code, change;
     private String room_code = "";
+    private Boolean flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +43,40 @@ public class Waiting extends AppCompatActivity {
         imageView.setVisibility(View.GONE);
         change = findViewById(R.id.textView20);
         room_code = generateString(6);
-        code.setText("Your code:" + room_code);
+        code.setText(" Your code:" + room_code);
         FirebaseDatabase Node = FirebaseDatabase.getInstance();
         DatabaseReference reference = Node.getReference("Rooms");
         reference.child(room_code).setValue(room_code);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(room_code).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!(snapshot.exists()))
+                if (snapshot.exists())
                 {
-                    Toast.makeText(getApplicationContext(), "Someone joined!", Toast.LENGTH_LONG).show();
 
-                    //imageView.setVisibility(View.VISIBLE);  // found!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                 //progressBar.setVisibility(View.GONE);  // set text found  // MOVE TO OTHER ACTIVITY + FOUND!
-                 //change.setText("Found");
+                }
+                else
+                {
+                    if(flag == true)
+                    {
+                        change.setText("       Player found!");
+                        imageView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                DatabaseReference reft = FirebaseDatabase.getInstance().getReference("waitroom").child(room_code);
+                                reft.removeValue();
+                                startActivity(new Intent(Waiting.this, Vs.class));
+                                finish();
+                            }
+                        },5000);
+                    }
+                    else
+                    {
+
+                    }
+
+
                 }
             }
 
@@ -68,6 +89,7 @@ public class Waiting extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flag = false;
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Rooms").child(room_code);
                 ref.removeValue();
                 startActivity(new Intent(Waiting.this, Homescreen.class));

@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,9 @@ public class Joinroom extends AppCompatActivity {
     private Button joincode, goback;
     private String code;
     private EditText editText;
+    private FirebaseAuth auth;
+    private String id;
+    private TextView tx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,10 @@ public class Joinroom extends AppCompatActivity {
         joincode = findViewById(R.id.join_room10);
         editText = findViewById(R.id.jointhis);
         goback = findViewById(R.id.button5);
+        tx = findViewById(R.id.join_info);
+        auth = FirebaseAuth.getInstance();
+        id = auth.getCurrentUser().getUid();
+
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,9 +56,19 @@ public class Joinroom extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists())
                             {
-                                Toast.makeText(getApplicationContext(), "Joining!", Toast.LENGTH_LONG).show();
+                                tx.setText("     Joining room!");
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Rooms").child(code);
                                 reference.removeValue();
+                                FirebaseDatabase Node = FirebaseDatabase.getInstance();
+                                DatabaseReference rik = Node.getReference("waitroom");
+                                rik.child(code).setValue(id);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        startActivity(new Intent(Joinroom.this, Vs.class));
+                                        finish();
+                                    }
+                                },5000);
                             }
                             else
                             {

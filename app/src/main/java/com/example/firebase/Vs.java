@@ -14,6 +14,8 @@ import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
         private Button btngoback;
@@ -41,7 +43,8 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         btngoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(Vs.this, Homescreen.class));
+                finish();
             }
         });
         streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager()
@@ -83,14 +86,6 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         super.onStop();
         streetViewPanoramaFragment.onStop();
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (streetViewPanoramaFragment != null)
-            streetViewPanoramaFragment.onDestroy();
-        streetViewPanoramaChangeListener = null;
-        streetViewPanoramaClickListener = null;
-        streetViewPanorama = null;
-    }
+
 
     }
