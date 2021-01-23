@@ -5,34 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Vs"
+    android:background="@drawable/unnamed"
     >
 
     <fragment
         android:id="@+id/streetViewMap"
         android:name="com.google.android.gms.maps.StreetViewPanoramaFragment"
-        android:layout_width="296dp"
-        android:layout_height="395dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="135dp" />
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button4"
-        android:layout_width="178dp"
-        android:layout_height="96dp"
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="282dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
-        android:layout_marginBottom="31dp"
-        android:background="@drawable/roundstyle"
-        android:text="Go back"
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:layout_marginEnd="125dp"
+        android:layout_marginRight="125dp"
+        android:layout_marginBottom="549dp"
+        android:text="Time left:"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
 import com.google.android.gms.maps.StreetViewPanorama;
@@ -18,7 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
-        private Button btngoback;
+        private TextView tex;
+        private String a;
+        private CountDownTimer countDownTimer;
         private static final Integer PANORAMA_CAMERA_DURATION = 1000;
         public static final String TAG = MainActivity.class.getSimpleName();
         private static final String STREET_VIEW_BUNDLE = "StreetViewBundle";
@@ -39,14 +44,20 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vs);
-        btngoback = findViewById(R.id.button4);
-        btngoback.setOnClickListener(new View.OnClickListener() {
+        tex = findViewById(R.id.textView7);
+        a = String.valueOf((Math.floor(Math.random() * 10)+1));
+        countDownTimer = new CountDownTimer(22000,1000) {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Vs.this, Homescreen.class));
+            public void onTick(long millisUntilFinished) {
+                tex.setText("Time left:" + millisUntilFinished/1000 + " sec");
+            }
+
+            @Override
+            public void onFinish() {
+                startActivity(new Intent(Vs.this, Place1.class));
                 finish();
             }
-        });
+        };
         streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager()
                 .findFragmentById(R.id.streetViewMap);
         streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
@@ -54,6 +65,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         if (savedInstanceState != null)
             streetViewBundle = savedInstanceState.getBundle(STREET_VIEW_BUNDLE);
         streetViewPanoramaFragment.onCreate(streetViewBundle);
+        countDownTimer.start();
     }
     @Override
     public void onBackPressed() {
@@ -77,7 +89,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         this.streetViewPanorama = streetViewPanorama;
-        this.streetViewPanorama.setPosition(new LatLng(-33.873398, 150.976744));
+        this.streetViewPanorama.setPosition(new LatLng(31.9754299207125, 34.79445259261774));
         this.streetViewPanorama.setOnStreetViewPanoramaChangeListener(streetViewPanoramaChangeListener);
         this.streetViewPanorama.setOnStreetViewPanoramaClickListener(streetViewPanoramaClickListener);
     }
