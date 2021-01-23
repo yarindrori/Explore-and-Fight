@@ -51,8 +51,8 @@ public class Waiting extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         imageView.setVisibility(View.GONE);
         change = findViewById(R.id.textView20);
-        room_code = generateString(6);
-        code.setText("Your code:" + room_code);
+        room_code = generateString(5);
+        code.setText(" Your code:" + room_code);
         FirebaseDatabase Node = FirebaseDatabase.getInstance();
         DatabaseReference rik = Node.getReference("temp");
         rik.child(room_code).setValue(id);
@@ -69,7 +69,7 @@ public class Waiting extends AppCompatActivity {
                 {
                     if(flag == true)
                     {
-                        change.setText("       Player found!");
+                        change.setText("      Player found!");
                         imageView.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         DatabaseReference refe = FirebaseDatabase.getInstance().getReference("waitroom").child(room_code);

@@ -46,7 +46,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         setContentView(R.layout.activity_vs);
         tex = findViewById(R.id.textView7);
         a = String.valueOf((Math.floor(Math.random() * 10)+1));
-        countDownTimer = new CountDownTimer(10000,1000) { // 2sec delay so 12 for 10 sec
+        countDownTimer = new CountDownTimer(7000,1000) { // 2sec delay so 12 for 10 sec
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:" + millisUntilFinished/1000 + " sec");
@@ -95,7 +95,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         this.streetViewPanorama = streetViewPanorama;
-        this.streetViewPanorama.setPosition(new LatLng(31.9754299207125, 34.79445259261774));
+        this.streetViewPanorama.setPosition(new LatLng(32.073420488301636, 34.79257760610014));
         this.streetViewPanorama.setOnStreetViewPanoramaChangeListener(streetViewPanoramaChangeListener);
         this.streetViewPanorama.setOnStreetViewPanoramaClickListener(streetViewPanoramaClickListener);
     }

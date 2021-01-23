@@ -36,18 +36,18 @@
         android:background="@drawable/roundstyle"
         android:text="Go back"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
     <EditText
         android:id="@+id/jointhis"
-        android:layout_width="247dp"
-        android:layout_height="85dp"
+        android:layout_width="198dp"
+        android:layout_height="91dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
-        android:layout_marginBottom="331dp"
+        android:layout_marginEnd="111dp"
+        android:layout_marginRight="111dp"
+        android:layout_marginBottom="332dp"
         android:ems="10"
         android:hint="Room code"
         android:inputType="text"
@@ -68,6 +68,6 @@
         android:background="@drawable/roundstyle"
         android:text="Join"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
 </RelativeLayout>

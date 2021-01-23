@@ -49,5 +49,5 @@
         android:background="@drawable/roundstyle"
         android:text="Go back"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 </RelativeLayout>

@@ -36,7 +36,7 @@
         android:background="@drawable/roundstyle"
         android:text="Cancel"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logout_btn_final"
@@ -51,6 +51,6 @@
         android:background="@drawable/roundstyle"
         android:text="Logout"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
 </RelativeLayout>

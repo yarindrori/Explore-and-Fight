@@ -49,7 +49,7 @@ public class Joinroom extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 code = editText.getText().toString();
-                if (code.length() == 6)
+                if (code.length() == 5)
                 {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                     ref.child("Rooms").child(code).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -57,6 +57,8 @@ public class Joinroom extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists())
                             {
+                                joincode.setEnabled(false);
+                                goback.setEnabled(false);
                                 tx.setText("     Joining room!");
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Rooms").child(code);
                                 reference.removeValue();
