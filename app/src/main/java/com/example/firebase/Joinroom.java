@@ -26,6 +26,7 @@ public class Joinroom extends AppCompatActivity {
     private FirebaseAuth auth;
     private String id;
     private TextView tx;
+    private String id2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +63,24 @@ public class Joinroom extends AppCompatActivity {
                                 FirebaseDatabase Node = FirebaseDatabase.getInstance();
                                 DatabaseReference rik = Node.getReference("waitroom");
                                 rik.child(code).setValue(id);
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("temp").child(code);
+                                ref.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists())
+                                        id2 = snapshot.getValue().toString();
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        startActivity(new Intent(Joinroom.this, Vs.class));
+                                        Intent intent = new Intent(Joinroom.this, Vs.class);
+                                        intent.putExtra("id1", id);
+                                        intent.putExtra("id2", id2);
+                                        startActivity(intent);
                                         finish();
                                     }
                                 },5000);
