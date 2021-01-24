@@ -177,8 +177,8 @@ public class Place1 extends AppCompatActivity {
                                     if(score1.equals("1") & !flag)
                                     {
                                         flag = true;
-                                       Intent intent3 = new Intent(Place1.this, Win.class);
-                                       startActivity(intent3);
+                                        Intent intent3 = new Intent(Place1.this, Win.class);
+                                        startActivity(intent3);
                                         finish();
                                     }
                                     else

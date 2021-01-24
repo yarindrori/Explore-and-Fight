@@ -100,7 +100,7 @@ public class Waiting extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
-                        },5000);
+                        },4700);
                     }
                     else
                     {

@@ -21,16 +21,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
-        private TextView tex;
-        private String a;
-        private CountDownTimer countDownTimer;
-        private static final Integer PANORAMA_CAMERA_DURATION = 1000;
-        public static final String TAG = MainActivity.class.getSimpleName();
-        private static final String STREET_VIEW_BUNDLE = "StreetViewBundle";
-        private StreetViewPanorama streetViewPanorama;
-        private StreetViewPanoramaFragment streetViewPanoramaFragment;
-        private StreetViewPanorama.OnStreetViewPanoramaChangeListener streetViewPanoramaChangeListener = streetViewPanoramaLocation -> Log.e(TAG, "Street View Panorama Change Listener");
-        private StreetViewPanorama.OnStreetViewPanoramaClickListener streetViewPanoramaClickListener = (orientation -> {
+    private TextView tex;
+    private String a;
+    private CountDownTimer countDownTimer;
+    private static final Integer PANORAMA_CAMERA_DURATION = 1000;
+    public static final String TAG = MainActivity.class.getSimpleName();
+    private static final String STREET_VIEW_BUNDLE = "StreetViewBundle";
+    private StreetViewPanorama streetViewPanorama;
+    private StreetViewPanoramaFragment streetViewPanoramaFragment;
+    private StreetViewPanorama.OnStreetViewPanoramaChangeListener streetViewPanoramaChangeListener = streetViewPanoramaLocation -> Log.e(TAG, "Street View Panorama Change Listener");
+    private StreetViewPanorama.OnStreetViewPanoramaClickListener streetViewPanoramaClickListener = (orientation -> {
         Point point = streetViewPanorama.orientationToPoint(orientation);
         if (point != null) {
             streetViewPanorama.animateTo(
@@ -39,7 +39,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
                             .zoom(streetViewPanorama.getPanoramaCamera().zoom)
                             .build(), PANORAMA_CAMERA_DURATION);
         }
-        });
+    });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,4 +106,4 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     }
 
 
-    }
+}

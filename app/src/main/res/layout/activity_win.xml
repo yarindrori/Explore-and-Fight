@@ -8,6 +8,21 @@
     android:background="@drawable/unnamed"
     >
 
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:layout_marginBottom="255dp"
+        android:text="Coins: +10 coins"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancel_logout2"
         android:layout_width="178dp"
@@ -40,15 +55,15 @@
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="355dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
         android:layout_marginBottom="317dp"
-        android:text=" Your score: 25 points"
+        android:text=" Your score: +25 points"
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold" />

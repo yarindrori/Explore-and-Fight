@@ -21,6 +21,7 @@ public class Lost extends AppCompatActivity {
     private FirebaseAuth auth;
     private String score;
     private Boolean flag = false;
+    private Boolean flag2 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,40 @@ public class Lost extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        DatabaseReference reference10 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("coins");
+        reference10.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    if (flag2 == false)
+                    {
+                        flag2 = true;
+                        score = snapshot.getValue().toString();
+                        Integer score_rl= Integer.parseInt(score);
+                        int a = score_rl + 1;
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("coins");
+                        ref.setValue(a);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
         goback = findViewById(R.id.cancel_logout5);
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
