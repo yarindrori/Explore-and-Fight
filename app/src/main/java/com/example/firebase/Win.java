@@ -24,6 +24,7 @@ public class Win extends AppCompatActivity {
     private String score;
     private Boolean flag = false;
     private Boolean flag2 = false;
+    private Boolean flag3 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,46 +49,14 @@ public class Win extends AppCompatActivity {
                         int a = score_rl + 25;
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
                         ref.setValue(a);
-                        DatabaseReference r = FirebaseDatabase.getInstance().getReference("Games");
-                        r.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists())
-                                {
-                                    r.removeValue();
-                                }
-                                else
-                                {
-                                }
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
                     }
                 }
                 else
                 {
-                    DatabaseReference r = FirebaseDatabase.getInstance().getReference("Games");
-                    r.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists())
-                            {
-                                r.removeValue();
-                            }
-                            else
-                            {
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
+
+
                 }
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -109,10 +78,8 @@ public class Win extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         goback.setOnClickListener(new View.OnClickListener() {

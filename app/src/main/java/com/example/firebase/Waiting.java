@@ -53,6 +53,8 @@ public class Waiting extends AppCompatActivity {
         change = findViewById(R.id.textView20);
         room_code = generateString(5);
         code.setText(" Your code:" + room_code);
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Games").child(room_code);
+        reference1.setValue(room_code);
         FirebaseDatabase Node = FirebaseDatabase.getInstance();
         DatabaseReference rik = Node.getReference("temp");
         rik.child(room_code).setValue(id);
@@ -81,7 +83,6 @@ public class Waiting extends AppCompatActivity {
                                     id2 = snapshot.getValue().toString();
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -95,12 +96,13 @@ public class Waiting extends AppCompatActivity {
                                 DatabaseReference reff = FirebaseDatabase.getInstance().getReference("temp").child(room_code);
                                 reff.removeValue();
                                 Intent intent = new Intent(Waiting.this, Vs.class);
+                                intent.putExtra("code", room_code);
                                 intent.putExtra("id1", id);
                                 intent.putExtra("id2", id2);
                                 startActivity(intent);
                                 finish();
                             }
-                        },4700);
+                        },4850);
                     }
                     else
                     {
@@ -121,6 +123,8 @@ public class Waiting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 flag = false;
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Games").child(room_code);
+                reference.removeValue();
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Rooms").child(room_code);
                 ref.removeValue();
                 DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("temp").child(room_code);

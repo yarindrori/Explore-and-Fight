@@ -16,18 +16,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Lost extends AppCompatActivity {
+public class Tie extends AppCompatActivity {
     private Button goback;
     private FirebaseAuth auth;
     private String score;
     private Boolean flag = false;
     private Boolean flag2 = false;
     private Boolean flag3 = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lost);
+        setContentView(R.layout.activity_tie);
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         assert user != null;
@@ -43,7 +42,7 @@ public class Lost extends AppCompatActivity {
                         flag = true;
                         score =  snapshot.getValue().toString();
                         Integer score_rl= Integer.parseInt(score);
-                        int a = score_rl + 5;
+                        int a = score_rl + 10;
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
                         ref.setValue(a);
                     }
@@ -53,7 +52,6 @@ public class Lost extends AppCompatActivity {
 
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -69,30 +67,27 @@ public class Lost extends AppCompatActivity {
                         flag2 = true;
                         score = snapshot.getValue().toString();
                         Integer score_rl= Integer.parseInt(score);
-                        int a = score_rl + 1;
+                        int a = score_rl + 5;
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("coins");
                         ref.setValue(a);
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-        goback = findViewById(R.id.cancel_logout5);
+        goback = findViewById(R.id.cancel_logout3);
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Lost.this, Homescreen.class));
+                startActivity(new Intent(Tie.this, Homescreen.class));
                 finish();
             }
         });
-
     }
     @Override
     public void onBackPressed() {
-
     }
 }

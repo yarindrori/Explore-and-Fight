@@ -80,6 +80,7 @@ public class Joinroom extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         Intent intent = new Intent(Joinroom.this, Vs.class);
+                                        intent.putExtra("code",code);
                                         intent.putExtra("id1", id);
                                         intent.putExtra("id2", id2);
                                         startActivity(intent);
