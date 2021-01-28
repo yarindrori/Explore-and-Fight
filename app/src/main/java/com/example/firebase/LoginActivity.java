@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth2;
     private FirebaseAuth.AuthStateListener stateListener;
     private CheckBox checkBox;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        imageView = findViewById(R.id.imageView3);
         auth2 = FirebaseAuth.getInstance();
         login_mail = findViewById(R.id.login_mail);
         login_pass = findViewById(R.id.login_pass);
@@ -48,6 +51,13 @@ public class LoginActivity extends AppCompatActivity {
         btnclearMail = findViewById(R.id.login_clearMail);
         btnclearPass = findViewById(R.id.login_clearPass);
         checkBox = findViewById(R.id.show_pass);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
+            }
+        });
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

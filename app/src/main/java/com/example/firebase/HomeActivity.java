@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +35,13 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private String rl, rn;
     private CheckBox checkBox;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        imageView = findViewById(R.id.imageView);
         auth = FirebaseAuth.getInstance();
         sign_mail = findViewById(R.id.sign_mail);
         sign_pass = findViewById(R.id.sign_pass);
@@ -48,6 +51,13 @@ public class HomeActivity extends AppCompatActivity {
         btnclearPass = findViewById(R.id.sign_clearPass);
         btnclearUser = findViewById(R.id.sign_clearUsername);
         checkBox = findViewById(R.id.show_pass2);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                finish();
+            }
+        });
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -8,11 +8,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button SignIn;
+    private Button SignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -100,6 +100,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         this.streetViewPanorama.setPosition(new LatLng(32.073420488301636, 34.79257760610014));
         this.streetViewPanorama.setOnStreetViewPanoramaChangeListener(streetViewPanoramaChangeListener);
         this.streetViewPanorama.setOnStreetViewPanoramaClickListener(streetViewPanoramaClickListener);
+        this.streetViewPanorama.setStreetNamesEnabled(false);
     }
     @Override
     protected void onStop() {

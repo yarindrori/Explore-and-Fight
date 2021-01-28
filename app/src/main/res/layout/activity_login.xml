@@ -7,6 +7,19 @@
     tools:context=".LoginActivity"
     android:background="@drawable/unnamed"
     >
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="61dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="479dp"
+        app:srcCompat="@drawable/undo" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:textSize="18dp"
         android:id="@+id/login_clearPass"
