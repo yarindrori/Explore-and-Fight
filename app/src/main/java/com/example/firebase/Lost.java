@@ -85,7 +85,9 @@ public class Lost extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Lost.this, Homescreen.class));
+                Intent intent = new Intent(Lost.this, Homescreen.class);
+                intent.putExtra("key", "yes");
+                startActivity(intent);
                 finish();
             }
         });

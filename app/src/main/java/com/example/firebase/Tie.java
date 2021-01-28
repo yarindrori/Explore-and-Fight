@@ -82,7 +82,9 @@ public class Tie extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Tie.this, Homescreen.class));
+                Intent intent = new Intent(Tie.this, Homescreen.class);
+                intent.putExtra("key", "yes");
+                startActivity(intent);
                 finish();
             }
         });
