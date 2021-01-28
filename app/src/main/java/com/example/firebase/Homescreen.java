@@ -39,20 +39,25 @@ public class Homescreen extends AppCompatActivity {
         ld = findViewById(R.id.ldimg);
         String id = user.getUid();
         Intent intent = getIntent();
-        String k = intent.getStringExtra("key");
-        if (k.equals("yes"))
-        {
-            try {
-                DatabaseReference r = FirebaseDatabase.getInstance().getReference("Games");
-                r.removeValue();
-                DatabaseReference r1 = FirebaseDatabase.getInstance().getReference("Score");
-                r1.removeValue();
-            }
-            catch (Exception e)
+        try {
+            String k = intent.getStringExtra("key");
+            if (k.equals("yes"))
             {
-
+                try {
+                    DatabaseReference r = FirebaseDatabase.getInstance().getReference("Games");
+                    r.removeValue();
+                    DatabaseReference r1 = FirebaseDatabase.getInstance().getReference("Score");
+                    r1.removeValue();
+                }
+                catch (Exception e)
+                {
+                }
             }
         }
+        catch (Exception e)
+        {
+        }
+
         ref = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
