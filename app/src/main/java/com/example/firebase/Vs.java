@@ -21,9 +21,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
-    private TextView tex;
+    private TextView tex,tex1;
     private String a;
     private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer1;
+    private Boolean f = false;
     private static final Integer PANORAMA_CAMERA_DURATION = 1000;
     public static final String TAG = MainActivity.class.getSimpleName();
     private static final String STREET_VIEW_BUNDLE = "StreetViewBundle";
@@ -44,12 +46,15 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vs);
+        tex1 = findViewById(R.id.textView18);
+        tex1.setVisibility(View.GONE);
         tex = findViewById(R.id.textView7);
         a = String.valueOf((Math.floor(Math.random() * 10)+1));
-        countDownTimer = new CountDownTimer(20000,1000) { // 2sec delay so 12 for 10 sec
+        countDownTimer1 = new CountDownTimer(4000,600) {
             @Override
             public void onTick(long millisUntilFinished) {
-                tex.setText("Time left:" + millisUntilFinished/1000 + " sec");
+                tex.setText("Time left:");
+                tex1.setText(""+millisUntilFinished/1000);
             }
 
             @Override
@@ -64,6 +69,19 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
                 intent2.putExtra("code", code);
                 startActivity(intent2);
                 finish();
+            }
+        };
+
+
+        countDownTimer = new CountDownTimer(20000,1000) { // 2sec delay so 12 for 10 sec
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tex.setText("Time left:" + millisUntilFinished/1000 + " sec");
+            }
+            @Override
+            public void onFinish() {
+                tex1.setVisibility(View.VISIBLE);
+                countDownTimer1.start();
             }
         };
         streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager()
