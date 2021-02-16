@@ -32,6 +32,7 @@ public class Place1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place1);
+        c = "";
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         assert user != null;
@@ -131,6 +132,11 @@ public class Place1 extends AppCompatActivity {
                 if (c.equals("spain"))
                 {
                     spain.setBackgroundResource(R.drawable.roundwrong);
+                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                    ref3.setValue("0");
+                }
+                if (c.equals(""))
+                {
                     DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
                     ref3.setValue("0");
                 }
