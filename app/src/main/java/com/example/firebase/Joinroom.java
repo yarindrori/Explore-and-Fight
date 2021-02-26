@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Joinroom extends AppCompatActivity {
     private Button joincode, goback;
-    private String code;
+    private String code, yo;
     private EditText editText;
     private FirebaseAuth auth;
     private String id;
@@ -79,14 +79,34 @@ public class Joinroom extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent intent = new Intent(Joinroom.this, Vs.class);
-                                        intent.putExtra("code",code);
-                                        intent.putExtra("id1", id);
-                                        intent.putExtra("id2", id2);
-                                        startActivity(intent);
-                                        finish();
+                                        DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+                                        rop.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists())
+                                                {
+                                                    yo = snapshot.getValue().toString();
+                                                    Integer a = Integer.parseInt(yo);
+                                                    int b = a;
+                                                    Intent intent = new Intent(Joinroom.this, Vs.class);
+                                                    intent.putExtra("code",code);
+                                                    intent.putExtra("id1", id);
+                                                    intent.putExtra("id2", id2);
+                                                    intent.putExtra("ran",b);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
                                     }
-                                },5000);
+                                },850);
                             }
                             else
                             {

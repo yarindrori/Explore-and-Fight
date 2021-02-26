@@ -18,6 +18,7 @@ import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Random;
 
 public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
+    private Boolean flag = false;
+    private Boolean flag2 = false;
+    private Boolean flag3 = false;
+    private DataSnapshot snapshot1;
+    private Boolean g = false;
+    private int check = 0;
+    private int thatsk = 0;
     private LatLng l1 = new LatLng(13.41241963977408,103.8681012543761); // Cambodia
     private LatLng l2 = new LatLng(-33.85803087516396,151.21450292817096); // Sydney
     private LatLng l3 = new LatLng(48.86060891918641,2.2908821980026883); // Paris
@@ -40,14 +48,16 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     private LatLng l11 = new LatLng(25.19600810188601 ,55.27520186162982); // Dubai
     private LatLng l12 = new LatLng(27.17278518287194 ,78.0422489679255); // India
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-    private Random rn = new Random();
-    private int num = rn.nextInt(12) + 1;
+    private String score = "";
+    private String tot = "";
     private int b = 0;
+    private Boolean papa = true;
     private TextView tex,tex1;
     private String a;
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimer1;
     private Boolean f = false;
+    private DatabaseReference reference100 = FirebaseDatabase.getInstance().getReference("Match");
     private static final Integer PANORAMA_CAMERA_DURATION = 1000;
     public static final String TAG = MainActivity.class.getSimpleName();
     private static final String STREET_VIEW_BUNDLE = "StreetViewBundle";
@@ -68,6 +78,10 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vs);
+        Intent intent = getIntent();
+        String code = intent.getStringExtra("code");
+        String id = intent.getStringExtra("id1");
+        String id2 = intent.getStringExtra("id2");
         tex1 = findViewById(R.id.textView18);
         tex1.setVisibility(View.GONE);
         tex = findViewById(R.id.textView7);
@@ -82,10 +96,6 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
             @Override
             public void onFinish() {
                 Intent intent2 = new Intent(Vs.this, Place1.class);
-                Intent intent = getIntent();
-                String code = intent.getStringExtra("code");
-                String id = intent.getStringExtra("id1");
-                String id2 = intent.getStringExtra("id2");
                 intent2.putExtra("id1",id);
                 intent2.putExtra("id2", id2);
                 intent2.putExtra("code", code);
@@ -137,109 +147,68 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         this.streetViewPanorama = streetViewPanorama;
-        if(num == 1)
-        {
-            ref.child("Taken").child("1").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists())
-                {
-                    num++;
-                }
-                else
-                {
-                    b = num;
-                    ref.child("Taken").child("1").setValue("1");
-                }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-            this.streetViewPanorama.setPosition(l1);
-        }
-         // now
-        if(b == 1)
-        {
-            this.streetViewPanorama.setPosition(l1);
-        }
-        if(b == 2)
-        {
-            this.streetViewPanorama.setPosition(l2);
-        }
-        if(b == 3)
-        {
-            this.streetViewPanorama.setPosition(l3);
-        }
-        if(b == 4)
-        {
-            this.streetViewPanorama.setPosition(l4);
-        }
-        if(b == 5)
-        {
-            this.streetViewPanorama.setPosition(l5);
-        }
-        if(b == 6)
-        {
-            this.streetViewPanorama.setPosition(l6);
-        }
-        if(b == 7)
-        {
-            this.streetViewPanorama.setPosition(l7);
-        }
-        if(b == 8)
-        {
-            this.streetViewPanorama.setPosition(l8);
-        }
-        if(b == 9)
-        {
-            this.streetViewPanorama.setPosition(l9);
-        }
-        if(b == 10)
-        {
-            this.streetViewPanorama.setPosition(l10);
-        }
-        if(b == 11)
-        {
-            this.streetViewPanorama.setPosition(l11);
-        }
-        if(b == 12)
-        {
-            this.streetViewPanorama.setPosition(l12);
-        }
+        flag = false;
+        check = 1;
+        Intent intent = getIntent();
+        String code = intent.getStringExtra("code");
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String id2 = intent.getStringExtra("id2");
+        String id3 = intent.getStringExtra("id1");
+        int top = intent.getIntExtra("ran",0);
+        thatsk = top;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       if (check == 1)
+       {
+           // second time
+           if(thatsk == 1)
+           {
+               this.streetViewPanorama.setPosition(l1);
+           }
+           if(thatsk == 2)
+           {
+               this.streetViewPanorama.setPosition(l2);
+           }
+           if(thatsk == 3)
+           {
+               this.streetViewPanorama.setPosition(l3);
+           }
+           if(thatsk == 4)
+           {
+               this.streetViewPanorama.setPosition(l4);
+           }
+           if(thatsk == 5)
+           {
+               this.streetViewPanorama.setPosition(l5);
+           }
+           if(thatsk == 6)
+           {
+               this.streetViewPanorama.setPosition(l6);
+           }
+           if(thatsk == 7)
+           {
+               this.streetViewPanorama.setPosition(l7);
+           }
+           if(thatsk == 8)
+           {
+               this.streetViewPanorama.setPosition(l8);
+           }
+           if(thatsk == 9)
+           {
+               this.streetViewPanorama.setPosition(l9);
+           }
+           if(thatsk == 10)
+           {
+               this.streetViewPanorama.setPosition(l10);
+           }
+           if(thatsk == 11)
+           {
+               this.streetViewPanorama.setPosition(l11);
+           }
+           if(thatsk == 12)
+           {
+               this.streetViewPanorama.setPosition(l12);
+           }
+       }
         this.streetViewPanorama.setOnStreetViewPanoramaChangeListener(streetViewPanoramaChangeListener);
         this.streetViewPanorama.setOnStreetViewPanoramaClickListener(streetViewPanoramaClickListener);
         this.streetViewPanorama.setStreetNamesEnabled(false);
@@ -249,6 +218,5 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         super.onStop();
         streetViewPanoramaFragment.onStop();
     }
-
 
 }
