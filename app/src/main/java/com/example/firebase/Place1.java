@@ -74,7 +74,7 @@ public class Place1 extends AppCompatActivity {
                     f = true;
                     Random rn = new Random();
                     int num = rn.nextInt(4) + 1;
-                    String chosen = "1";
+                    String chosen = snapshot.getValue().toString();
                     if (chosen.equals("1"))
                     {
                         if (num == 1)
@@ -217,6 +217,7 @@ public class Place1 extends AppCompatActivity {
                                         DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
                                         ref3.setValue("0");
                                     }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
                                 if (num == 2)
                                 {
@@ -243,6 +244,7 @@ public class Place1 extends AppCompatActivity {
                                         DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
                                         ref3.setValue("0");
                                     }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
                                 if (num == 3)
                                 {
@@ -269,6 +271,7 @@ public class Place1 extends AppCompatActivity {
                                         DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
                                         ref3.setValue("0");
                                     }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
                                 if (num == 4)
                                 {
@@ -280,13 +283,13 @@ public class Place1 extends AppCompatActivity {
                                     }
                                     if (c.equals(l1[2]))
                                     {
-                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
                                         DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
                                         ref3.setValue("0");
                                     }
                                     if (c.equals(l1[3]))
                                     {
-                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
                                         DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
                                         ref3.setValue("0");
                                     }
@@ -295,9 +298,9 @@ public class Place1 extends AppCompatActivity {
                                         DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
                                         ref3.setValue("0");
                                     }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -359,10 +362,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("2"))
                     {
-                        place1.setText(l2[1]);
-                        place2.setText(l2[2]);
-                        place3.setText(l2[3]);
-                        place4.setText(l2[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l2[0]);
+                            place2.setText(l2[1]);
+                            place3.setText(l2[2]);
+                            place4.setText(l2[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l2[0]);
+                            place1.setText(l2[1]);
+                            place3.setText(l2[2]);
+                            place4.setText(l2[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l2[0]);
+                            place1.setText(l2[1]);
+                            place2.setText(l2[2]);
+                            place4.setText(l2[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l2[0]);
+                            place1.setText(l2[1]);
+                            place2.setText(l2[2]);
+                            place3.setText(l2[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -387,6 +414,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -398,6 +430,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -409,6 +446,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -420,8 +462,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -432,31 +477,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l2[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l2[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l2[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -518,10 +648,35 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("3"))
                     {
-                        place1.setText(l3[1]);
-                        place2.setText(l3[2]);
-                        place3.setText(l3[3]);
-                        place4.setText(l3[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l3[0]);
+                            place2.setText(l3[1]);
+                            place3.setText(l3[2]);
+                            place4.setText(l3[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l3[0]);
+                            place1.setText(l3[1]);
+                            place3.setText(l3[2]);
+                            place4.setText(l3[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l3[0]);
+                            place1.setText(l3[1]);
+                            place2.setText(l3[2]);
+                            place4.setText(l3[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l3[0]);
+                            place1.setText(l3[1]);
+                            place2.setText(l3[2]);
+                            place3.setText(l3[3]);
+                        }
+
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -546,6 +701,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -557,6 +717,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -568,6 +733,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -579,8 +749,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -591,31 +764,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l3[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l3[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l3[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -677,10 +935,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("4"))
                     {
-                        place1.setText(l4[1]);
-                        place2.setText(l4[2]);
-                        place3.setText(l4[3]);
-                        place4.setText(l4[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l4[0]);
+                            place2.setText(l4[1]);
+                            place3.setText(l4[2]);
+                            place4.setText(l4[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l4[0]);
+                            place1.setText(l4[1]);
+                            place3.setText(l4[2]);
+                            place4.setText(l4[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l4[0]);
+                            place1.setText(l4[1]);
+                            place2.setText(l4[2]);
+                            place4.setText(l4[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l4[0]);
+                            place1.setText(l4[1]);
+                            place2.setText(l4[2]);
+                            place3.setText(l4[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -705,6 +987,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -716,6 +1003,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -727,6 +1019,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -738,8 +1035,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -750,31 +1050,117 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l4[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l4[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l4[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l4[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l4[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l4[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l4[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
+
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -836,10 +1222,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("5"))
                     {
-                        place1.setText(l5[1]);
-                        place2.setText(l5[2]);
-                        place3.setText(l5[3]);
-                        place4.setText(l5[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l5[0]);
+                            place2.setText(l5[1]);
+                            place3.setText(l5[2]);
+                            place4.setText(l5[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l5[0]);
+                            place1.setText(l5[1]);
+                            place3.setText(l5[2]);
+                            place4.setText(l5[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l5[0]);
+                            place1.setText(l5[1]);
+                            place2.setText(l5[2]);
+                            place4.setText(l5[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l5[0]);
+                            place1.setText(l5[1]);
+                            place2.setText(l5[2]);
+                            place3.setText(l5[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -864,6 +1274,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -875,6 +1290,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -886,6 +1306,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -897,8 +1322,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -909,31 +1337,115 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l5[1]))
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l5[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l5[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l5[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l5[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l5[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l5[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -995,10 +1507,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("6"))
                     {
-                        place1.setText(l6[1]);
-                        place2.setText(l6[2]);
-                        place3.setText(l6[3]);
-                        place4.setText(l6[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l6[0]);
+                            place2.setText(l6[1]);
+                            place3.setText(l6[2]);
+                            place4.setText(l6[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l6[0]);
+                            place1.setText(l6[1]);
+                            place3.setText(l6[2]);
+                            place4.setText(l6[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l6[0]);
+                            place1.setText(l6[1]);
+                            place2.setText(l6[2]);
+                            place4.setText(l6[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l6[0]);
+                            place1.setText(l6[1]);
+                            place2.setText(l6[2]);
+                            place3.setText(l6[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1023,6 +1559,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -1034,6 +1575,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -1045,6 +1591,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -1056,8 +1607,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -1068,32 +1622,115 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l6[1]))
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l6[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l6[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
-
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -1154,10 +1791,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("7"))
                     {
-                        place1.setText(l7[1]);
-                        place2.setText(l7[2]);
-                        place3.setText(l7[3]);
-                        place4.setText(l7[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l7[0]);
+                            place2.setText(l7[1]);
+                            place3.setText(l7[2]);
+                            place4.setText(l7[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l7[0]);
+                            place1.setText(l7[1]);
+                            place3.setText(l7[2]);
+                            place4.setText(l7[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l7[0]);
+                            place1.setText(l7[1]);
+                            place2.setText(l7[2]);
+                            place4.setText(l7[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l7[0]);
+                            place1.setText(l7[1]);
+                            place2.setText(l7[2]);
+                            place3.setText(l7[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1182,6 +1843,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -1193,6 +1859,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -1204,6 +1875,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -1215,8 +1891,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -1227,31 +1906,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l7[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l7[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l7[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l7[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l7[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l7[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l7[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -1313,10 +2077,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("8"))
                     {
-                        place1.setText(l8[1]);
-                        place2.setText(l8[2]);
-                        place3.setText(l8[3]);
-                        place4.setText(l8[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l8[0]);
+                            place2.setText(l8[1]);
+                            place3.setText(l8[2]);
+                            place4.setText(l8[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l8[0]);
+                            place1.setText(l8[1]);
+                            place3.setText(l8[2]);
+                            place4.setText(l8[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l8[0]);
+                            place1.setText(l8[1]);
+                            place2.setText(l8[2]);
+                            place4.setText(l8[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l8[0]);
+                            place1.setText(l8[1]);
+                            place2.setText(l8[2]);
+                            place3.setText(l8[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1341,6 +2129,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -1352,6 +2145,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -1363,6 +2161,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -1374,8 +2177,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -1386,31 +2192,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l8[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l8[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l8[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l8[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l8[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l8[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l8[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -1472,10 +2363,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("9"))
                     {
-                        place1.setText(l9[1]);
-                        place2.setText(l9[2]);
-                        place3.setText(l9[3]);
-                        place4.setText(l9[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l9[0]);
+                            place2.setText(l9[1]);
+                            place3.setText(l9[2]);
+                            place4.setText(l9[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l9[0]);
+                            place1.setText(l9[1]);
+                            place3.setText(l9[2]);
+                            place4.setText(l9[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l9[0]);
+                            place1.setText(l9[1]);
+                            place2.setText(l9[2]);
+                            place4.setText(l9[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l9[0]);
+                            place1.setText(l9[1]);
+                            place2.setText(l9[2]);
+                            place3.setText(l9[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1500,6 +2415,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -1511,6 +2431,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -1522,6 +2447,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -1533,8 +2463,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -1545,31 +2478,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l9[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l9[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l9[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l9[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l9[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l9[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l9[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -1631,10 +2649,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("10"))
                     {
-                        place1.setText(l10[1]);
-                        place2.setText(l10[2]);
-                        place3.setText(l10[3]);
-                        place4.setText(l10[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l10[0]);
+                            place2.setText(l10[1]);
+                            place3.setText(l10[2]);
+                            place4.setText(l10[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l10[0]);
+                            place1.setText(l10[1]);
+                            place3.setText(l10[2]);
+                            place4.setText(l10[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l10[0]);
+                            place1.setText(l10[1]);
+                            place2.setText(l10[2]);
+                            place4.setText(l10[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l10[0]);
+                            place1.setText(l10[1]);
+                            place2.setText(l10[2]);
+                            place3.setText(l10[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1659,6 +2701,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -1670,6 +2717,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if(num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -1681,6 +2733,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if(num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -1692,8 +2749,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if(num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -1704,31 +2764,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l10[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l10[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l10[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l10[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l10[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l10[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l10[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -1790,10 +2935,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("11"))
                     {
-                        place1.setText(l11[1]);
-                        place2.setText(l11[2]);
-                        place3.setText(l11[3]);
-                        place4.setText(l11[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l11[0]);
+                            place2.setText(l11[1]);
+                            place3.setText(l11[2]);
+                            place4.setText(l11[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l11[0]);
+                            place1.setText(l11[1]);
+                            place3.setText(l11[2]);
+                            place4.setText(l11[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l11[0]);
+                            place1.setText(l11[1]);
+                            place2.setText(l11[2]);
+                            place4.setText(l11[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l11[0]);
+                            place1.setText(l11[1]);
+                            place2.setText(l11[2]);
+                            place3.setText(l11[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1818,6 +2987,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -1829,6 +3003,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -1840,6 +3019,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -1851,8 +3035,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -1863,31 +3050,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l11[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l11[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l11[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l11[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l11[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l11[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l11[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -1949,10 +3221,34 @@ public class Place1 extends AppCompatActivity {
                     }
                     if (chosen.equals("12"))
                     {
-                        place1.setText(l12[1]);
-                        place2.setText(l12[2]);
-                        place3.setText(l12[3]);
-                        place4.setText(l12[0]);
+                        if (num == 1)
+                        {
+                            place1.setText(l12[0]);
+                            place2.setText(l12[1]);
+                            place3.setText(l12[2]);
+                            place4.setText(l12[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l12[0]);
+                            place1.setText(l12[1]);
+                            place3.setText(l12[2]);
+                            place4.setText(l12[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l12[0]);
+                            place1.setText(l12[1]);
+                            place2.setText(l12[2]);
+                            place4.setText(l12[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l12[0]);
+                            place1.setText(l12[1]);
+                            place2.setText(l12[2]);
+                            place3.setText(l12[3]);
+                        }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -1977,6 +3273,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place2.setOnClickListener(new View.OnClickListener() {
@@ -1988,6 +3289,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place3.setOnClickListener(new View.OnClickListener() {
@@ -1999,6 +3305,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         place4.setOnClickListener(new View.OnClickListener() {
@@ -2010,8 +3321,11 @@ public class Place1 extends AppCompatActivity {
                                 place2.setEnabled(false);
                                 place3.setEnabled(false);
                                 place4.setEnabled(false);
-                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                ref2.setValue("1");
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
                         });
                         countDownTimer = new CountDownTimer(15000,1000) {
@@ -2022,31 +3336,116 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
-                                if (c.equals(l12[1]))
+
+                                if (num == 1)
                                 {
-                                    place1.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l12[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l12[2]))
+                                if (num == 2)
                                 {
-                                    place2.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l12[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(l12[3]))
+                                if (num == 3)
                                 {
-                                    place3.setBackgroundResource(R.drawable.roundwrong);
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l12[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                if (c.equals(""))
+                                if (num == 4)
                                 {
-                                    DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                    ref3.setValue("0");
+                                    if (c.equals(l12[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
                                 c = "";
-                                place4.setBackgroundResource(R.drawable.roundright);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
