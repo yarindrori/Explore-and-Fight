@@ -51,11 +51,6 @@ public class Win extends AppCompatActivity {
                         ref.setValue(a);
                     }
                 }
-                else
-                {
-
-
-                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

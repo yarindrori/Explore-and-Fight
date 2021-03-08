@@ -26,12 +26,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
+import java.util.Stack;
 
 public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
     private Boolean flag = false;
     private Boolean flag2 = false;
     private Boolean flag3 = false;
-    private DataSnapshot snapshot1;
     private Boolean g = false;
     private int check = 0;
     private int thatsk = 0;
@@ -150,10 +150,6 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         flag = false;
         check = 1;
         Intent intent = getIntent();
-        String code = intent.getStringExtra("code");
-        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String id2 = intent.getStringExtra("id2");
-        String id3 = intent.getStringExtra("id1");
         int top = intent.getIntExtra("ran",0);
         thatsk = top;
 
@@ -218,5 +214,4 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         super.onStop();
         streetViewPanoramaFragment.onStop();
     }
-
 }

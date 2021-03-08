@@ -331,6 +331,7 @@ public class Place1 extends AppCompatActivity {
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
+
                                                                         flag2 = true;
                                                                         startActivity(new Intent(Place1.this, Win.class));
                                                                         finish();
