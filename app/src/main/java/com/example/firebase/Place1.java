@@ -326,14 +326,73 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 1;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
-
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 1;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -345,7 +404,40 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 1;
+                                                        if (num == j)
+                                                        {
+                                                            if (num >= 11) {
+                                                                num--;
+                                                            }
+                                                            else
+                                                            {
+                                                                if(num >= 4 && num < 11) {
+                                                                    num++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(num < 4)
+                                                                        num++;
+                                                                }
+                                                            }
+                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -613,14 +705,82 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 2;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
+
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 2;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
+
                                                                     }
                                                                 }
                                                             }
@@ -631,8 +791,42 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 2;
+                                                        if (num == j)
+                                                        {
+                                                            if (num >= 11) {
+                                                                num--;
+                                                            }
+                                                            else
+                                                            {
+                                                                if(num >= 4 && num < 11) {
+                                                                    num++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(num < 4)
+                                                                        num++;
+                                                                }
+                                                            }
+                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
+
                                                     }
                                                 }
                                             }
@@ -900,13 +1094,79 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 3;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 3;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -918,7 +1178,40 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 3;
+                                                        if (num == j)
+                                                        {
+                                                            if (num >= 11) {
+                                                                num--;
+                                                            }
+                                                            else
+                                                            {
+                                                                if(num >= 4 && num < 11) {
+                                                                    num++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(num < 4)
+                                                                        num++;
+                                                                }
+                                                            }
+                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -1187,13 +1480,79 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 4;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 4;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -1205,7 +1564,40 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 4;
+                                                        if (num == j)
+                                                        {
+                                                            if (num >= 11) {
+                                                                num--;
+                                                            }
+                                                            else
+                                                            {
+                                                                if(num >= 4 && num < 11) {
+                                                                    num++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(num < 4)
+                                                                        num++;
+                                                                }
+                                                            }
+                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -1472,13 +1864,79 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 5;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 5;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                        num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -1490,7 +1948,40 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 5;
+                                                        if (num == j)
+                                                        {
+                                                            if (num >= 11) {
+                                                                num--;
+                                                            }
+                                                            else
+                                                            {
+                                                                if(num >= 4 && num < 11) {
+                                                                    num++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(num < 4)
+                                                                        num++;
+                                                                }
+                                                            }
+                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -1756,13 +2247,79 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 6;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 6;
+                                                                        if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -1774,7 +2331,40 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 6;
+                                                        if (num == j)
+                                                        {
+                                                            if (num >= 11) {
+                                                                num--;
+                                                            }
+                                                            else
+                                                                {
+                                                                    if(num >= 4 && num < 11) {
+                                                                        num++;
+                                                                       }
+                                                                    else
+                                                                        {
+                                                                            if(num < 4)
+                                                                                num++;
+                                                                        }
+                                                                }
+                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -2042,13 +2632,77 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 7; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 7; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -2060,7 +2714,39 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 7; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -2328,13 +3014,77 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 8; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 8; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -2346,7 +3096,39 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 8; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -2614,13 +3396,77 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 9; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 9; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -2632,7 +3478,38 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 9; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -2900,13 +3777,77 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 10; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 10; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -2918,7 +3859,39 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 10; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -3186,13 +4159,77 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 11; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 11; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -3204,7 +4241,39 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 11; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                      
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -3472,13 +4541,76 @@ public class Place1 extends AppCompatActivity {
                                                                     if (score2.equals("1") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Tie.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 12; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                      
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                     else if (score2.equals("0") && !flag2)
                                                                     {
                                                                         flag2 = true;
-                                                                        startActivity(new Intent(Place1.this, Win.class));
+                                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                                        intent.putExtra("code",code);
+                                                                        intent.putExtra("id1",id_current);
+                                                                        intent.putExtra("id2",id_op);
+                                                                        Random rn = new Random();
+                                                                        int num = rn.nextInt(12) + 1;
+                                                                        int j = 12; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                                        ol.child(id).child("currentscore").setValue(1);
+
+                                                                        intent.putExtra("p1", j);
+                                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+
+                                                                        startActivity(intent);
                                                                         finish();
                                                                     }
                                                                 }
@@ -3490,7 +4622,37 @@ public class Place1 extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        startActivity(new Intent(Place1.this, Lost.class));
+                                                        Intent intent = new Intent(Place1.this, Vs2.class);
+                                                        intent.putExtra("code",code);
+                                                        intent.putExtra("id1",id_current);
+                                                        intent.putExtra("id2",id_op);
+                                                        Random rn = new Random();
+                                                        int num = rn.nextInt(12) + 1;
+                                                        int j = 12; if (num == j)
+                                                                        {
+                                                                            if (num >= 11) {
+                                                                                num--;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if(num >= 4 && num < 11) {
+                                                                                    num++;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if(num < 4)
+                                                                                       num++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                        DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
+                                                        ol.child(id).child("currentscore").setValue(0);
+
+                                                        intent.putExtra("p1", j);
+                                                        intent.putExtra("ran", num);
+DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(code);
+rop.setValue(num);
+                                                        startActivity(intent);
                                                         finish();
                                                     }
                                                 }
@@ -3500,12 +4662,11 @@ public class Place1 extends AppCompatActivity {
                                             }
                                         });
                                     }
-                                },3550);
+                                },3500);
                             }
                         };
                         countDownTimer.start();
                     }
-                    refe.removeValue();
                 }
             }
             @Override

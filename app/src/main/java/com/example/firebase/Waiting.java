@@ -89,6 +89,10 @@ public class Waiting extends AppCompatActivity {
 
                             }
                         });
+                        Random rn = new Random();
+                        int num = rn.nextInt(12) + 1;
+                        DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(room_code);
+                        rop.setValue(num);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -96,11 +100,7 @@ public class Waiting extends AppCompatActivity {
                                 reft.removeValue();
                                 DatabaseReference reff = FirebaseDatabase.getInstance().getReference("temp").child(room_code);
                                 reff.removeValue();
-                                Random rn = new Random();
-                                int num = rn.nextInt(12) + 1;
                                 Intent intent = new Intent(Waiting.this, Vs.class);
-                                DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(room_code);
-                                rop.setValue(num);
                                 intent.putExtra("code", room_code);
                                 intent.putExtra("id1", id);
                                 intent.putExtra("id2", id2);
@@ -108,13 +108,8 @@ public class Waiting extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
-                        },1000);
+                        },850);
                     }
-                    else
-                    {
-
-                    }
-
 
                 }
             }

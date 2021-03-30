@@ -98,10 +98,6 @@ public class Joinroom extends AppCompatActivity {
                                                     startActivity(intent);
                                                     finish();
                                                 }
-                                                else
-                                                {
-
-                                                }
                                             }
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError error) {
