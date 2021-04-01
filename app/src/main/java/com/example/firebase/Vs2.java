@@ -34,7 +34,6 @@ public class Vs2 extends AppCompatActivity implements OnStreetViewPanoramaReadyC
     private Boolean flag3 = false;
     private Boolean g = false;
     private int check = 0;
-    private int thatsk = 0;
     private LatLng l1 = new LatLng(13.41241963977408,103.8681012543761); // Cambodia
     private LatLng l2 = new LatLng(-33.85803087516396,151.21450292817096); // Sydney
     private LatLng l3 = new LatLng(48.86060891918641,2.2908821980026883); // Paris
@@ -82,12 +81,11 @@ public class Vs2 extends AppCompatActivity implements OnStreetViewPanoramaReadyC
         String code = intent.getStringExtra("code");
         String id = intent.getStringExtra("id1");
         String id2 = intent.getStringExtra("id2");
-        int p1 = intent.getIntExtra("p1",0);
         tex1 = findViewById(R.id.textView218);
         tex1.setVisibility(View.GONE);
         tex = findViewById(R.id.textView27);
         a = String.valueOf((Math.floor(Math.random() * 10)+1));
-        countDownTimer1 = new CountDownTimer(4000,600) {
+        countDownTimer1 = new CountDownTimer(5000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:");
@@ -100,14 +98,13 @@ public class Vs2 extends AppCompatActivity implements OnStreetViewPanoramaReadyC
                 intent2.putExtra("id1",id);
                 intent2.putExtra("id2", id2);
                 intent2.putExtra("code", code);
-                intent2.putExtra("p1",p1);
                 startActivity(intent2);
                 finish();
             }
         };
 
 
-        countDownTimer = new CountDownTimer(20000,1000) { // 2sec delay so 12 for 10 sec
+        countDownTimer = new CountDownTimer(6000,1000) { // 2sec delay so 12 for 10 sec
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:" + millisUntilFinished/1000 + " sec");
@@ -149,64 +146,55 @@ public class Vs2 extends AppCompatActivity implements OnStreetViewPanoramaReadyC
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         this.streetViewPanorama = streetViewPanorama;
-        flag = false;
-        check = 1;
         Intent intent = getIntent();
-        int top = intent.getIntExtra("ran",0);
-        Toast.makeText(getApplicationContext(), String.valueOf(top),Toast.LENGTH_LONG).show();
-        thatsk = top;
-
-        if (check == 1)
+        int top = intent.getIntExtra("ran2",0);
+        if(top == 1)
         {
-            // second time
-            if(thatsk == 1)
-            {
-                this.streetViewPanorama.setPosition(l1);
-            }
-            if(thatsk == 2)
-            {
-                this.streetViewPanorama.setPosition(l2);
-            }
-            if(thatsk == 3)
-            {
-                this.streetViewPanorama.setPosition(l3);
-            }
-            if(thatsk == 4)
-            {
-                this.streetViewPanorama.setPosition(l4);
-            }
-            if(thatsk == 5)
-            {
-                this.streetViewPanorama.setPosition(l5);
-            }
-            if(thatsk == 6)
-            {
-                this.streetViewPanorama.setPosition(l6);
-            }
-            if(thatsk == 7)
-            {
-                this.streetViewPanorama.setPosition(l7);
-            }
-            if(thatsk == 8)
-            {
-                this.streetViewPanorama.setPosition(l8);
-            }
-            if(thatsk == 9)
-            {
-                this.streetViewPanorama.setPosition(l9);
-            }
-            if(thatsk == 10)
-            {
-                this.streetViewPanorama.setPosition(l10);
-            }
-            if(thatsk == 11)
-            {
-                this.streetViewPanorama.setPosition(l11);
-            }
-            if(thatsk == 12)
-            {
-                this.streetViewPanorama.setPosition(l12);
-            }
+            this.streetViewPanorama.setPosition(l1);
+        }
+        if(top == 2)
+        {
+            this.streetViewPanorama.setPosition(l2);
+        }
+        if(top == 3)
+        {
+            this.streetViewPanorama.setPosition(l3);
+        }
+        if(top == 4)
+        {
+            this.streetViewPanorama.setPosition(l4);
+        }
+        if(top == 5)
+        {
+            this.streetViewPanorama.setPosition(l5);
+        }
+        if(top == 6)
+        {
+            this.streetViewPanorama.setPosition(l6);
+        }
+        if(top == 7)
+        {
+            this.streetViewPanorama.setPosition(l7);
+        }
+        if(top == 8)
+        {
+            this.streetViewPanorama.setPosition(l8);
+        }
+        if(top == 9)
+        {
+            this.streetViewPanorama.setPosition(l9);
+        }
+        if(top == 10)
+        {
+            this.streetViewPanorama.setPosition(l10);
+        }
+        if(top == 11)
+        {
+            this.streetViewPanorama.setPosition(l11);
+        }
+        if(top == 12)
+        {
+            this.streetViewPanorama.setPosition(l12);
         }
         this.streetViewPanorama.setOnStreetViewPanoramaChangeListener(streetViewPanoramaChangeListener);
         this.streetViewPanorama.setOnStreetViewPanoramaClickListener(streetViewPanoramaClickListener);

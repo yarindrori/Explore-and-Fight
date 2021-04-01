@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Random;
 
 public class Place2 extends AppCompatActivity {
-    private Boolean f = false, f2 = false;
+    private Boolean f = false, f2 = false, flag_noans = false , flme = false, flop = false;
     private Button place1, place2,place3,place4;
     private CountDownTimer countDownTimer;
     private TextView tex;
@@ -45,7 +45,7 @@ public class Place2 extends AppCompatActivity {
         String[] l5 = new String[]{"Moscow","Ukraine" ,"Bulgaria","Czech Republic"};
         String[] l6 = new String[]{"Chile","Peru" ,"Costa Rica","Argentina"};
         String[] l7 = new String[]{"San Francisco","Los Angeles" ,"San Diego","United Kingdom"};
-        String[] l8 = new String[]{"Jerusalem","Egypt" ,"Spain","Turkey"};
+        String[] l8 = new String[]{"Israel","Egypt" ,"Spain","Turkey"};
         String[] l9 = new String[]{"Brazil","Colombia" ,"Chile","Ecuador"};
         String[] l10 = new String[]{"Greece","Israel" ,"Cyprus","Panama"};
         String[] l11 = new String[]{"Dubai","Bahrain" ,"Saudi Arabia","Morocco"};
@@ -64,7 +64,7 @@ public class Place2 extends AppCompatActivity {
         id_op = intent.getStringExtra("id2");
         id_combine = id_current + id_op;
         delete = id_op + id_current;
-        DatabaseReference refe = FirebaseDatabase.getInstance().getReference("Match").child(code);
+        DatabaseReference refe = FirebaseDatabase.getInstance().getReference("Match").child(code+"1");
         refe.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -74,4020 +74,4141 @@ public class Place2 extends AppCompatActivity {
                     Random rn = new Random();
                     int num = rn.nextInt(4) + 1;
                     String chosen = snapshot.getValue().toString();
-                    Integer lol = Integer.parseInt(chosen);
-                    int q = lol;
-                    if (q == intent.getIntExtra("p1",0))
+                    if (chosen.equals("1"))
                     {
-                        f = false;
+                        if (num == 1)
+                        {
+                            place1.setText(l1[0]);
+                            place2.setText(l1[1]);
+                            place3.setText(l1[2]);
+                            place4.setText(l1[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l1[0]);
+                            place1.setText(l1[1]);
+                            place3.setText(l1[2]);
+                            place4.setText(l1[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l1[0]);
+                            place1.setText(l1[1]);
+                            place2.setText(l1[2]);
+                            place4.setText(l1[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l1[0]);
+                            place1.setText(l1[1]);
+                            place2.setText(l1[2]);
+                            place3.setText(l1[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l1[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 2)
+                                {
+                                    if (c.equals(l1[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 3)
+                                {
+                                    if (c.equals(l1[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 4)
+                                {
+                                    if (c.equals(l1[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l1[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
+                                                    {
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
+                                                                                }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
+                                                                                }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+
+                                                                    }
+                                                                }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
+
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
                     }
-                    else
+                    if (chosen.equals("2"))
                     {
-                        if (chosen.equals("1"))
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l1[0]);
-                                place2.setText(l1[1]);
-                                place3.setText(l1[2]);
-                                place4.setText(l1[3]);
+                            place1.setText(l2[0]);
+                            place2.setText(l2[1]);
+                            place3.setText(l2[2]);
+                            place4.setText(l2[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l2[0]);
+                            place1.setText(l2[1]);
+                            place3.setText(l2[2]);
+                            place4.setText(l2[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l2[0]);
+                            place1.setText(l2[1]);
+                            place2.setText(l2[2]);
+                            place4.setText(l2[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l2[0]);
+                            place1.setText(l2[1]);
+                            place2.setText(l2[2]);
+                            place3.setText(l2[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l1[0]);
-                                place1.setText(l1[1]);
-                                place3.setText(l1[2]);
-                                place4.setText(l1[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l1[0]);
-                                place1.setText(l1[1]);
-                                place2.setText(l1[2]);
-                                place4.setText(l1[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l1[0]);
-                                place1.setText(l1[1]);
-                                place2.setText(l1[2]);
-                                place3.setText(l1[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
-                                    {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
-                                    }
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
-                                }
-                                @Override
-                                public void onFinish() {
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l1[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l1[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l1[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l1[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l1[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
+                            }
+                        });
 
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 2)
+                                {
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 3)
+                                {
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 4)
+                                {
+                                    if (c.equals(l2[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l2[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
-                                                                                         intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
-                                                                                         intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
-                                                            intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("2"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("3"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l2[0]);
-                                place2.setText(l2[1]);
-                                place3.setText(l2[2]);
-                                place4.setText(l2[3]);
-                            }
-                            if (num == 2)
-                            {
-                                place2.setText(l2[0]);
-                                place1.setText(l2[1]);
-                                place3.setText(l2[2]);
-                                place4.setText(l2[3]);
-                            }
-                            if (num == 3)
-                            {
-                                place3.setText(l2[0]);
-                                place1.setText(l2[1]);
-                                place2.setText(l2[2]);
-                                place4.setText(l2[3]);
-                            }
-                            if (num == 4)
-                            {
-                                place4.setText(l2[0]);
-                                place1.setText(l2[1]);
-                                place2.setText(l2[2]);
-                                place3.setText(l2[3]);
-                            }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
-                                    {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
-                                }
-                                @Override
-                                public void onFinish() {
+                            place1.setText(l3[0]);
+                            place2.setText(l3[1]);
+                            place3.setText(l3[2]);
+                            place4.setText(l3[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l3[0]);
+                            place1.setText(l3[1]);
+                            place3.setText(l3[2]);
+                            place4.setText(l3[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l3[0]);
+                            place1.setText(l3[1]);
+                            place2.setText(l3[2]);
+                            place4.setText(l3[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l3[0]);
+                            place1.setText(l3[1]);
+                            place2.setText(l3[2]);
+                            place3.setText(l3[3]);
+                        }
 
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l2[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l2[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l2[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l2[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l2[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
 
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 2)
+                                {
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 3)
+                                {
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 4)
+                                {
+                                    if (c.equals(l3[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l3[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                        intent.putExtra("code", code);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
-                                                             intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("3"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("4"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l3[0]);
-                                place2.setText(l3[1]);
-                                place3.setText(l3[2]);
-                                place4.setText(l3[3]);
+                            place1.setText(l4[0]);
+                            place2.setText(l4[1]);
+                            place3.setText(l4[2]);
+                            place4.setText(l4[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l4[0]);
+                            place1.setText(l4[1]);
+                            place3.setText(l4[2]);
+                            place4.setText(l4[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l4[0]);
+                            place1.setText(l4[1]);
+                            place2.setText(l4[2]);
+                            place4.setText(l4[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l4[0]);
+                            place1.setText(l4[1]);
+                            place2.setText(l4[2]);
+                            place3.setText(l4[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l3[0]);
-                                place1.setText(l3[1]);
-                                place3.setText(l3[2]);
-                                place4.setText(l3[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l3[0]);
-                                place1.setText(l3[1]);
-                                place2.setText(l3[2]);
-                                place4.setText(l3[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l3[0]);
-                                place1.setText(l3[1]);
-                                place2.setText(l3[2]);
-                                place3.setText(l3[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
 
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l4[1]))
                                     {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
+                                    if (c.equals(l4[2]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
+                                    if (c.equals(l4[3]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
+                                    if (c.equals(""))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
+                                if (num == 2)
+                                {
+                                    if (c.equals(l4[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l4[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
+                                if (num == 3)
+                                {
+                                    if (c.equals(l4[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                @Override
-                                public void onFinish() {
+                                if (num == 4)
+                                {
+                                    if (c.equals(l4[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l4[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
 
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l3[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l3[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l3[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l3[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l3[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists() && !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("4"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("5"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l4[0]);
-                                place2.setText(l4[1]);
-                                place3.setText(l4[2]);
-                                place4.setText(l4[3]);
+                            place1.setText(l5[0]);
+                            place2.setText(l5[1]);
+                            place3.setText(l5[2]);
+                            place4.setText(l5[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l5[0]);
+                            place1.setText(l5[1]);
+                            place3.setText(l5[2]);
+                            place4.setText(l5[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l5[0]);
+                            place1.setText(l5[1]);
+                            place2.setText(l5[2]);
+                            place4.setText(l5[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l5[0]);
+                            place1.setText(l5[1]);
+                            place2.setText(l5[2]);
+                            place3.setText(l5[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l4[0]);
-                                place1.setText(l4[1]);
-                                place3.setText(l4[2]);
-                                place4.setText(l4[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l4[0]);
-                                place1.setText(l4[1]);
-                                place2.setText(l4[2]);
-                                place4.setText(l4[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l4[0]);
-                                place1.setText(l4[1]);
-                                place2.setText(l4[2]);
-                                place3.setText(l4[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
-                                    {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
-                                    }
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
-                                }
-                                @Override
-                                public void onFinish() {
+                            }
+                        });
 
-                                    if (num == 1)
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l5[1]))
                                     {
-                                        if (c.equals(l4[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                    if (num == 2)
+                                    if (c.equals(l5[2]))
                                     {
-                                        if (c.equals(l4[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                    if (num == 3)
+                                    if (c.equals(l5[3]))
                                     {
-                                        if (c.equals(l4[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                    if (num == 4)
+                                    if (c.equals(""))
                                     {
-                                        if (c.equals(l4[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l4[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                    c = "";
+                                    place1.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 2)
+                                {
+                                    if (c.equals(l5[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 3)
+                                {
+                                    if (c.equals(l5[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 4)
+                                {
+                                    if (c.equals(l5[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l5[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
 
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists() && !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
-                                                                                        intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("5"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("6"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l5[0]);
-                                place2.setText(l5[1]);
-                                place3.setText(l5[2]);
-                                place4.setText(l5[3]);
+                            place1.setText(l6[0]);
+                            place2.setText(l6[1]);
+                            place3.setText(l6[2]);
+                            place4.setText(l6[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l6[0]);
+                            place1.setText(l6[1]);
+                            place3.setText(l6[2]);
+                            place4.setText(l6[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l6[0]);
+                            place1.setText(l6[1]);
+                            place2.setText(l6[2]);
+                            place4.setText(l6[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l6[0]);
+                            place1.setText(l6[1]);
+                            place2.setText(l6[2]);
+                            place3.setText(l6[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l5[0]);
-                                place1.setText(l5[1]);
-                                place3.setText(l5[2]);
-                                place4.setText(l5[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l5[0]);
-                                place1.setText(l5[1]);
-                                place2.setText(l5[2]);
-                                place4.setText(l5[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l5[0]);
-                                place1.setText(l5[1]);
-                                place2.setText(l5[2]);
-                                place3.setText(l5[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
-                                    {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
-                                    }
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
-                                }
-                                @Override
-                                public void onFinish() {
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l5[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l5[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l5[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l5[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l5[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
+                            }
+                        });
 
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 2)
+                                {
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 3)
+                                {
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
+                                }
+                                if (num == 4)
+                                {
+                                    if (c.equals(l6[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l6[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists() && !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("6"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("7"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l6[0]);
-                                place2.setText(l6[1]);
-                                place3.setText(l6[2]);
-                                place4.setText(l6[3]);
+                            place1.setText(l7[0]);
+                            place2.setText(l7[1]);
+                            place3.setText(l7[2]);
+                            place4.setText(l7[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l7[0]);
+                            place1.setText(l7[1]);
+                            place3.setText(l7[2]);
+                            place4.setText(l7[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l7[0]);
+                            place1.setText(l7[1]);
+                            place2.setText(l7[2]);
+                            place4.setText(l7[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l7[0]);
+                            place1.setText(l7[1]);
+                            place2.setText(l7[2]);
+                            place3.setText(l7[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l6[0]);
-                                place1.setText(l6[1]);
-                                place3.setText(l6[2]);
-                                place4.setText(l6[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l6[0]);
-                                place1.setText(l6[1]);
-                                place2.setText(l6[2]);
-                                place4.setText(l6[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l6[0]);
-                                place1.setText(l6[1]);
-                                place2.setText(l6[2]);
-                                place3.setText(l6[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
-                                    {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
-                                    }
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
                                 }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
+                            }
+                        });
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
                                 }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
+                                if (num == 1)
+                                {
+                                    if (c.equals(l7[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
+                                if (num == 2)
+                                {
+                                    if (c.equals(l7[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
+                                if (num == 3)
+                                {
+                                    if (c.equals(l7[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
+                                if (num == 4)
+                                {
+                                    if (c.equals(l7[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l7[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
                                 }
-                                @Override
-                                public void onFinish() {
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l6[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l6[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l6[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l6[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l6[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                c = "";
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("7"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("8"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l7[0]);
-                                place2.setText(l7[1]);
-                                place3.setText(l7[2]);
-                                place4.setText(l7[3]);
+                            place1.setText(l8[0]);
+                            place2.setText(l8[1]);
+                            place3.setText(l8[2]);
+                            place4.setText(l8[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l8[0]);
+                            place1.setText(l8[1]);
+                            place3.setText(l8[2]);
+                            place4.setText(l8[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l8[0]);
+                            place1.setText(l8[1]);
+                            place2.setText(l8[2]);
+                            place4.setText(l8[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l8[0]);
+                            place1.setText(l8[1]);
+                            place2.setText(l8[2]);
+                            place3.setText(l8[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l7[0]);
-                                place1.setText(l7[1]);
-                                place3.setText(l7[2]);
-                                place4.setText(l7[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l7[0]);
-                                place1.setText(l7[1]);
-                                place2.setText(l7[2]);
-                                place4.setText(l7[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l7[0]);
-                                place1.setText(l7[1]);
-                                place2.setText(l7[2]);
-                                place3.setText(l7[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l8[1]))
                                     {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
+                                    if (c.equals(l8[2]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
+                                    if (c.equals(l8[3]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
+                                    if (c.equals(""))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
+                                if (num == 2)
+                                {
+                                    if (c.equals(l8[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l8[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
+                                if (num == 3)
+                                {
+                                    if (c.equals(l8[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                @Override
-                                public void onFinish() {
+                                if (num == 4)
+                                {
+                                    if (c.equals(l8[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l8[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
 
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l7[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l7[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l7[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l7[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l7[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("8"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("9"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l8[0]);
-                                place2.setText(l8[1]);
-                                place3.setText(l8[2]);
-                                place4.setText(l8[3]);
+                            place1.setText(l9[0]);
+                            place2.setText(l9[1]);
+                            place3.setText(l9[2]);
+                            place4.setText(l9[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l9[0]);
+                            place1.setText(l9[1]);
+                            place3.setText(l9[2]);
+                            place4.setText(l9[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l9[0]);
+                            place1.setText(l9[1]);
+                            place2.setText(l9[2]);
+                            place4.setText(l9[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l9[0]);
+                            place1.setText(l9[1]);
+                            place2.setText(l9[2]);
+                            place3.setText(l9[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l8[0]);
-                                place1.setText(l8[1]);
-                                place3.setText(l8[2]);
-                                place4.setText(l8[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l8[0]);
-                                place1.setText(l8[1]);
-                                place2.setText(l8[2]);
-                                place4.setText(l8[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l8[0]);
-                                place1.setText(l8[1]);
-                                place2.setText(l8[2]);
-                                place3.setText(l8[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l9[1]))
                                     {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
+                                    if (c.equals(l9[2]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
+                                    if (c.equals(l9[3]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
+                                    if (c.equals(""))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
+                                if (num == 2)
+                                {
+                                    if (c.equals(l9[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l9[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
+                                if (num == 3)
+                                {
+                                    if (c.equals(l9[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                @Override
-                                public void onFinish() {
+                                if (num == 4)
+                                {
+                                    if (c.equals(l9[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l9[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
 
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l8[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l8[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l8[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l8[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l8[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("9"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("10"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l9[0]);
-                                place2.setText(l9[1]);
-                                place3.setText(l9[2]);
-                                place4.setText(l9[3]);
+                            place1.setText(l10[0]);
+                            place2.setText(l10[1]);
+                            place3.setText(l10[2]);
+                            place4.setText(l10[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l10[0]);
+                            place1.setText(l10[1]);
+                            place3.setText(l10[2]);
+                            place4.setText(l10[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l10[0]);
+                            place1.setText(l10[1]);
+                            place2.setText(l10[2]);
+                            place4.setText(l10[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l10[0]);
+                            place1.setText(l10[1]);
+                            place2.setText(l10[2]);
+                            place3.setText(l10[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l9[0]);
-                                place1.setText(l9[1]);
-                                place3.setText(l9[2]);
-                                place4.setText(l9[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l9[0]);
-                                place1.setText(l9[1]);
-                                place2.setText(l9[2]);
-                                place4.setText(l9[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l9[0]);
-                                place1.setText(l9[1]);
-                                place2.setText(l9[2]);
-                                place3.setText(l9[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if(num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if(num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if(num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l10[1]))
                                     {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
+                                    if (c.equals(l10[2]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
+                                    if (c.equals(l10[3]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
+                                    if (c.equals(""))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
+                                if (num == 2)
+                                {
+                                    if (c.equals(l10[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l10[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
+                                if (num == 3)
+                                {
+                                    if (c.equals(l10[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                @Override
-                                public void onFinish() {
+                                if (num == 4)
+                                {
+                                    if (c.equals(l10[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l10[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
 
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l9[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l9[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l9[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l9[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l9[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("10"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("11"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l10[0]);
-                                place2.setText(l10[1]);
-                                place3.setText(l10[2]);
-                                place4.setText(l10[3]);
+                            place1.setText(l11[0]);
+                            place2.setText(l11[1]);
+                            place3.setText(l11[2]);
+                            place4.setText(l11[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l11[0]);
+                            place1.setText(l11[1]);
+                            place3.setText(l11[2]);
+                            place4.setText(l11[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l11[0]);
+                            place1.setText(l11[1]);
+                            place2.setText(l11[2]);
+                            place4.setText(l11[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l11[0]);
+                            place1.setText(l11[1]);
+                            place2.setText(l11[2]);
+                            place3.setText(l11[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l10[0]);
-                                place1.setText(l10[1]);
-                                place3.setText(l10[2]);
-                                place4.setText(l10[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l10[0]);
-                                place1.setText(l10[1]);
-                                place2.setText(l10[2]);
-                                place4.setText(l10[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l10[0]);
-                                place1.setText(l10[1]);
-                                place2.setText(l10[2]);
-                                place3.setText(l10[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l11[1]))
                                     {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
+                                    if (c.equals(l11[2]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if(num == 2)
+                                    if (c.equals(l11[3]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if(num == 3)
+                                    if (c.equals(""))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if(num == 4)
+                                if (num == 2)
+                                {
+                                    if (c.equals(l11[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l11[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
+                                if (num == 3)
+                                {
+                                    if (c.equals(l11[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                @Override
-                                public void onFinish() {
+                                if (num == 4)
+                                {
+                                    if (c.equals(l11[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l11[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
 
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l10[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l10[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l10[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l10[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l10[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists() && !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
 
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("11"))
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
+                    }
+                    if (chosen.equals("12"))
+                    {
+                        if (num == 1)
                         {
-                            if (num == 1)
-                            {
-                                place1.setText(l11[0]);
-                                place2.setText(l11[1]);
-                                place3.setText(l11[2]);
-                                place4.setText(l11[3]);
+                            place1.setText(l12[0]);
+                            place2.setText(l12[1]);
+                            place3.setText(l12[2]);
+                            place4.setText(l12[3]);
+                        }
+                        if (num == 2)
+                        {
+                            place2.setText(l12[0]);
+                            place1.setText(l12[1]);
+                            place3.setText(l12[2]);
+                            place4.setText(l12[3]);
+                        }
+                        if (num == 3)
+                        {
+                            place3.setText(l12[0]);
+                            place1.setText(l12[1]);
+                            place2.setText(l12[2]);
+                            place4.setText(l12[3]);
+                        }
+                        if (num == 4)
+                        {
+                            place4.setText(l12[0]);
+                            place1.setText(l12[1]);
+                            place2.setText(l12[2]);
+                            place3.setText(l12[3]);
+                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists() && !flag)
+                                {
+                                    flag = true;
+                                    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
+                                    ref1.child(id_current).setValue(id_current);
+                                }
                             }
-                            if (num == 2)
-                            {
-                                place2.setText(l11[0]);
-                                place1.setText(l11[1]);
-                                place3.setText(l11[2]);
-                                place4.setText(l11[3]);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
                             }
-                            if (num == 3)
-                            {
-                                place3.setText(l11[0]);
-                                place1.setText(l11[1]);
-                                place2.setText(l11[2]);
-                                place4.setText(l11[3]);
+                        });
+                        place1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place1.getText().toString();
+                                place1.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 1)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            if (num == 4)
-                            {
-                                place4.setText(l11[0]);
-                                place1.setText(l11[1]);
-                                place2.setText(l11[2]);
-                                place3.setText(l11[3]);
+                        });
+                        place2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place2.getText().toString();
+                                place2.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 2)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
                             }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
+                        });
+                        place3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place3.getText().toString();
+                                place3.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 3)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        place4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                flag_noans = true;
+                                c = place4.getText().toString();
+                                place4.setBackgroundResource(R.drawable.roundwait);
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
+                                if (num == 4)
+                                {
+                                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                    ref2.setValue("1");
+                                }
+                            }
+                        });
+                        countDownTimer = new CountDownTimer(15000,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                temp = String.valueOf((millisUntilFinished/1000));
+                                tex.setText(" " + temp);
+                            }
+                            @Override
+                            public void onFinish() {
+                                if (!flag_noans)
+                                {
+                                    DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                    noans.setValue("0");
+                                }
+                                if (num == 1)
+                                {
+                                    if (c.equals(l12[1]))
                                     {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
+                                    if (c.equals(l12[2]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
+                                    if (c.equals(l12[3]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
+                                    if (c.equals(""))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    place1.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
+                                if (num == 2)
+                                {
+                                    if (c.equals(l12[1]))
                                     {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
                                     }
+                                    if (c.equals(l12[2]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place2.setBackgroundResource(R.drawable.roundright);
                                 }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
+                                if (num == 3)
+                                {
+                                    if (c.equals(l12[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[3]))
+                                    {
+                                        place4.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place3.setBackgroundResource(R.drawable.roundright);
                                 }
-                                @Override
-                                public void onFinish() {
+                                if (num == 4)
+                                {
+                                    if (c.equals(l12[1]))
+                                    {
+                                        place1.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[2]))
+                                    {
+                                        place2.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(l12[3]))
+                                    {
+                                        place3.setBackgroundResource(R.drawable.roundwrong);
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    if (c.equals(""))
+                                    {
+                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                        ref3.setValue("0");
+                                    }
+                                    place4.setBackgroundResource(R.drawable.roundright);
+                                }
+                                c = "";
 
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l11[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l11[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l11[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l11[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l11[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
+                                        reference5.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()&& !flme)
+                                                {
+                                                    flme = true;
+                                                    score1 = snapshot.getValue().toString();
+                                                    if(score1.equals("1"))
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
+                                                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
+                                                        ref3.setValue("1");
+                                                        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
+                                                        ref4.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.exists()&& !flop)
+                                                                {
+                                                                    flop = true;
+                                                                    score2 = snapshot.getValue().toString();
+                                                                    if (score2.equals("1") && !flag2)
                                                                     {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else if (score2.equals("0") && !flag2)
+                                                                    {
+                                                                        flag2 = true;
+                                                                        DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                        q1.addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                if (snapshot.exists() && !f2)
+                                                                                {
+                                                                                    f2 = true;
+                                                                                    String sc = snapshot.getValue().toString();
+                                                                                    Integer sc_r = Integer.parseInt(sc);
+                                                                                    int k = sc_r + 1;
+                                                                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
+                                                                                    ref.setValue(k);
+                                                                                    Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                                                    intent.putExtra("id1",id);
+                                                                                    intent.putExtra("code", code);
+                                                                                    intent.putExtra("id2",id_op);
+                                                                                    startActivity(intent);
+                                                                                    finish();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
+                                                                            }
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                            }
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            }
+                                                        });
                                                     }
-                                                }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
-
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
-                        if (chosen.equals("12"))
-                        {
-                            if (num == 1)
-                            {
-                                place1.setText(l12[0]);
-                                place2.setText(l12[1]);
-                                place3.setText(l12[2]);
-                                place4.setText(l12[3]);
-                            }
-                            if (num == 2)
-                            {
-                                place2.setText(l12[0]);
-                                place1.setText(l12[1]);
-                                place3.setText(l12[2]);
-                                place4.setText(l12[3]);
-                            }
-                            if (num == 3)
-                            {
-                                place3.setText(l12[0]);
-                                place1.setText(l12[1]);
-                                place2.setText(l12[2]);
-                                place4.setText(l12[3]);
-                            }
-                            if (num == 4)
-                            {
-                                place4.setText(l12[0]);
-                                place1.setText(l12[1]);
-                                place2.setText(l12[2]);
-                                place3.setText(l12[3]);
-                            }
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            ref.child("Games").child(code).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists() && !flag)
-                                    {
-                                        flag = true;
-                                        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Games").child(code);
-                                        ref1.child(id_current).setValue(id_current);
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                            place1.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place1.getText().toString();
-                                    place1.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 1)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place2.getText().toString();
-                                    place2.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 2)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place3.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place3.getText().toString();
-                                    place3.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 3)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            place4.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    c = place4.getText().toString();
-                                    place4.setBackgroundResource(R.drawable.roundwait);
-                                    place1.setEnabled(false);
-                                    place2.setEnabled(false);
-                                    place3.setEnabled(false);
-                                    place4.setEnabled(false);
-                                    if (num == 4)
-                                    {
-                                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                        ref2.setValue("1");
-                                    }
-                                }
-                            });
-                            countDownTimer = new CountDownTimer(15000,1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    temp = String.valueOf((millisUntilFinished/1000));
-                                    tex.setText(" " + temp);
-                                }
-                                @Override
-                                public void onFinish() {
-
-                                    if (num == 1)
-                                    {
-                                        if (c.equals(l12[1]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place1.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 2)
-                                    {
-                                        if (c.equals(l12[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[2]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place2.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 3)
-                                    {
-                                        if (c.equals(l12[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[3]))
-                                        {
-                                            place4.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place3.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    if (num == 4)
-                                    {
-                                        if (c.equals(l12[1]))
-                                        {
-                                            place1.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[2]))
-                                        {
-                                            place2.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(l12[3]))
-                                        {
-                                            place3.setBackgroundResource(R.drawable.roundwrong);
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        if (c.equals(""))
-                                        {
-                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                            ref3.setValue("0");
-                                        }
-                                        place4.setBackgroundResource(R.drawable.roundright);
-                                    }
-                                    c = "";
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("Games").child(code).child(id_current);
-                                            reference5.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists())
+                                                    else
                                                     {
-                                                        score1 = snapshot.getValue().toString();
-                                                        if(score1.equals("1"))
-                                                        {
-                                                            DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
-                                                            ref3.setValue("1");
-                                                            DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_op);
-                                                            ref4.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    if (snapshot.exists())
-                                                                    {
-                                                                        score2 = snapshot.getValue().toString();
-                                                                        if (score2.equals("1") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                        else if (score2.equals("0") && !flag2)
-                                                                        {
-                                                                            flag2 = true;
-                                                                            DatabaseReference q1 = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                            q1.addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                    if (snapshot.exists() && !f2)
-                                                                                    {
-                                                                                        f2 = true;
-                                                                                        String sc = snapshot.getValue().toString();
-                                                                                        Integer sc_r = Integer.parseInt(sc);
-                                                                                        int k = sc_r + 1;
-                                                                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("currentscore");
-                                                                                        ref.setValue(k);
-                                                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                                                         intent.putExtra("id1",id);
- intent.putExtra("code", code);
-                                                                                        intent.putExtra("id2",id_op);
-                                                                                        startActivity(intent);
-                                                                                        finish();
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                    }
-                                                                }
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            Intent intent = new Intent(Place2.this, WhoWon.class);
-                                                             intent.putExtra("id1",id);
-                                                             intent.putExtra("code", code);
-                                                            intent.putExtra("id2",id_op);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
+                                                        Intent intent = new Intent(Place2.this, WhoWon.class);
+                                                        intent.putExtra("id1",id);
+                                                        intent.putExtra("code", code);
+                                                        intent.putExtra("id2",id_op);
+                                                        startActivity(intent);
+                                                        finish();
                                                     }
                                                 }
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-                                                }
-                                            });
-                                        }
-                                    },3550);
-                                }
-                            };
-                            countDownTimer.start();
-                        }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            }
+                                        });
+                                    }
+                                },3550);
+                            }
+                        };
+                        countDownTimer.start();
                     }
                 }
             }

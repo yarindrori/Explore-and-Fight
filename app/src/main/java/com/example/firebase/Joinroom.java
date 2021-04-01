@@ -22,8 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Stack;
 
 public class Joinroom extends AppCompatActivity {
+    private Boolean f1 = false, f2 = false;
     private Button joincode, goback;
-    private String code, yo;
+    private String code, yo , yo2;
     private EditText editText;
     private FirebaseAuth auth;
     private String id;
@@ -85,18 +86,36 @@ public class Joinroom extends AppCompatActivity {
                                         rop.addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if (snapshot.exists())
+                                                if (snapshot.exists() && !f1)
                                                 {
+                                                    f1 = true;
                                                     yo = snapshot.getValue().toString();
                                                     Integer a = Integer.parseInt(yo);
                                                     int b = a;
-                                                    Intent intent = new Intent(Joinroom.this, Vs.class);
-                                                    intent.putExtra("code",code);
-                                                    intent.putExtra("id1", id);
-                                                    intent.putExtra("id2", id2);
-                                                    intent.putExtra("ran",b);
-                                                    startActivity(intent);
-                                                    finish();
+                                                    DatabaseReference rop2 = FirebaseDatabase.getInstance().getReference("Match").child(code+"1");
+                                                    rop2.addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            if (snapshot.exists()&& !f2)
+                                                            {
+                                                                f2 = true;
+                                                               yo2 = snapshot.getValue().toString();
+                                                               Integer a2 = Integer.parseInt(yo2);
+                                                               int b2 = a2;
+                                                               Intent intent = new Intent(Joinroom.this, Vs.class);
+                                                               intent.putExtra("code",code);
+                                                               intent.putExtra("id1", id);
+                                                               intent.putExtra("id2", id2);
+                                                               intent.putExtra("ran",b);
+                                                               intent.putExtra("ran2",b2);
+                                                               startActivity(intent);
+                                                               finish();
+                                                            }
+                                                        }
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                        }
+                                                    });
                                                 }
                                             }
                                             @Override

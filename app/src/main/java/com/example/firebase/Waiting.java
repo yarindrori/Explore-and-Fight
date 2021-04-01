@@ -93,6 +93,15 @@ public class Waiting extends AppCompatActivity {
                         int num = rn.nextInt(12) + 1;
                         DatabaseReference rop = FirebaseDatabase.getInstance().getReference("Match").child(room_code);
                         rop.setValue(num);
+                        int num2 = rn.nextInt(12)+1;
+                        while (num2 == num) // אם יש אותו מספר
+                        {
+                            num2 = rn.nextInt(12)+1;
+                        }
+                        DatabaseReference rop2 = FirebaseDatabase.getInstance().getReference("Match").child(room_code+"1");
+                        rop2.setValue(num2);
+                        int num3 = num2;
+
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -105,6 +114,7 @@ public class Waiting extends AppCompatActivity {
                                 intent.putExtra("id1", id);
                                 intent.putExtra("id2", id2);
                                 intent.putExtra("ran", num);
+                                intent.putExtra("ran2", num3);
                                 startActivity(intent);
                                 finish();
                             }
