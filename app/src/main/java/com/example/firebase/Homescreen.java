@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Homescreen extends AppCompatActivity {
     private Button logout;
-    private ImageView vs, ld;
+    private ImageView vs, ld, shop;
     private FirebaseAuth auth;
     private DatabaseReference ref;
     private TextView tx;
@@ -35,6 +35,7 @@ public class Homescreen extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         logout = findViewById(R.id.logout_btn);
         vs = findViewById(R.id.vsimg);
+        shop = findViewById(R.id.image_shop);
         tx = findViewById(R.id.player);
         ld = findViewById(R.id.ldimg);
         String id = user.getUid();
@@ -59,7 +60,6 @@ public class Homescreen extends AppCompatActivity {
                 DatabaseReference r2= FirebaseDatabase.getInstance().getReference("Users").child(id_op).child("currentscore");
                 r2.removeValue();
             }
-
         }
         catch (Exception e)
         {}
@@ -80,7 +80,13 @@ public class Homescreen extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(Homescreen.this, confirmlogout.class));
                 finish();
-
+            }
+        });
+       shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Homescreen.this, Shop.class));
+                finish();
             }
         });
         vs.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +107,4 @@ public class Homescreen extends AppCompatActivity {
     public void onBackPressed() {
 
     }
-
-
 }

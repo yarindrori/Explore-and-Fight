@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Createorjoin extends AppCompatActivity {
-    private Button create, join;
+    private Button create, join, goback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +16,14 @@ public class Createorjoin extends AppCompatActivity {
         setContentView(R.layout.activity_createorjoin);
         create = findViewById(R.id.create_room);
         join = findViewById(R.id.join_room);
+        goback = findViewById(R.id.button3);
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Createorjoin.this, Homescreen.class));
+                finish();
+            }
+        });
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

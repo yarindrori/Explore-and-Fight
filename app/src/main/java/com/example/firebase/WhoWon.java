@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class WhoWon extends AppCompatActivity {
     private Boolean f = false, f2 = false, f3 = false, f4 = false;
-    private TextView tex1, tex2;
+    private TextView tex1, tex2, whowon;
     private ImageView win , lose, draw;
     private ProgressBar bar;
     private Button back;
@@ -40,10 +40,12 @@ public class WhoWon extends AppCompatActivity {
         draw = findViewById(R.id.imageView7);
         tex1 = findViewById(R.id.textView21);
         tex2 = findViewById(R.id.textView22);
+        whowon = findViewById(R.id.textView19);
         auth = FirebaseAuth.getInstance();
         // מסתיר הכל לפני תוצאה
         win.setVisibility(View.GONE);
         lose.setVisibility(View.GONE);
+        whowon.setVisibility(View.GONE);
         draw.setVisibility(View.GONE);
         tex1.setVisibility(View.GONE);
         tex2.setVisibility(View.GONE);
@@ -88,6 +90,8 @@ public class WhoWon extends AppCompatActivity {
                                             back.setEnabled(true);
                                             tex1.setVisibility(View.VISIBLE);
                                             tex2.setVisibility(View.VISIBLE);
+                                            whowon.setText("Tie game!");
+                                            whowon.setVisibility(View.VISIBLE);
                                             tex1.setText("Your score: +10 points");
                                             tex2.setText("Coins: +5 coins");
 
@@ -147,6 +151,8 @@ public class WhoWon extends AppCompatActivity {
                                                 back.setEnabled(true);
                                                 tex1.setVisibility(View.VISIBLE);
                                                 tex2.setVisibility(View.VISIBLE);
+                                                whowon.setText("You lost!");
+                                                whowon.setVisibility(View.VISIBLE);
                                                 tex1.setText("Your score: +5 points");
                                                 tex2.setText("Coins: +1 coins");
 
@@ -205,6 +211,8 @@ public class WhoWon extends AppCompatActivity {
                                                 back.setEnabled(true);
                                                 tex1.setVisibility(View.VISIBLE);
                                                 tex2.setVisibility(View.VISIBLE);
+                                                whowon.setText("You won!");
+                                                whowon.setVisibility(View.VISIBLE);
                                                 tex1.setText("Your score: +25 points");
                                                 tex2.setText("Coins: +10 coins");
 
