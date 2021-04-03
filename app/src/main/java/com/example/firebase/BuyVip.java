@@ -22,7 +22,7 @@ public class BuyVip extends AppCompatActivity {
     private ImageView goback;
     private FirebaseAuth auth;
     private String id;
-    private Boolean f = false , f1 = false, f2 = false, f3 = false, f4 =false , f5 = false, f6 = false;
+    private Boolean f = false , f1 = false, f2 = false, f3 = false, f4 =false , f5 = false, f6 = false, f7 =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,7 @@ public class BuyVip extends AppCompatActivity {
                 f4 = false;
                 f5 = false;
                 f6 = false;
+                f7 = false;
                 DatabaseReference rop = FirebaseDatabase.getInstance().getReference("VIP Users").child(id);
                 rop.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -113,11 +114,26 @@ public class BuyVip extends AppCompatActivity {
                                                                                             Toast.makeText(getApplicationContext(),vip.getUsername() + ", " +"You are now VIP!", Toast.LENGTH_SHORT).show();
                                                                                             DatabaseReference v = FirebaseDatabase.getInstance().getReference("VIP Users");
                                                                                             v.child(id).setValue(vip);
+                                                                                            DatabaseReference vr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                                                            vr.addValueEventListener(new ValueEventListener() {
+                                                                                                @Override
+                                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                                    if (snapshot.exists() && !f7)
+                                                                                                    {
+                                                                                                        f7 = true;
+                                                                                                        int c = Integer.parseInt(snapshot.getValue().toString());
+                                                                                                        DatabaseReference v2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                                                                        v2.setValue(c+10);
+                                                                                                    }
+                                                                                                }
+                                                                                                @Override
+                                                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                                                }
+                                                                                            });
                                                                                         }
                                                                                     }
                                                                                     @Override
                                                                                     public void onCancelled(@NonNull DatabaseError error) {
-
                                                                                     }
                                                                                 });
                                                                             }
@@ -136,7 +152,6 @@ public class BuyVip extends AppCompatActivity {
                                                 }
                                                 @Override
                                                 public void onCancelled(@NonNull DatabaseError error) {
-
                                                 }
                                             });
                                         }

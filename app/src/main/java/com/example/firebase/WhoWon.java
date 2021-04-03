@@ -22,13 +22,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class WhoWon extends AppCompatActivity {
-    private Boolean f = false, f2 = false, f3 = false, f4 = false;
+    private Boolean f = false, f2 = false, f3 = false, f4 = false, f100 = false;
     private TextView tex1, tex2, whowon;
     private ImageView win , lose, draw;
     private ProgressBar bar;
     private Button back;
     private FirebaseAuth auth;
     private String score, score2 , total;
+    private int p_win = 25,c_win = 10, p_tie = 10,c_tie =5,p_lose = 5, c_lose = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,25 @@ public class WhoWon extends AppCompatActivity {
         String code = intent.getStringExtra("code");
         String id = intent.getStringExtra("id1");
         String id_op = intent.getStringExtra("id2");
-
+        DatabaseReference isvip = FirebaseDatabase.getInstance().getReference("VIP Users").child(id);
+        isvip.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && !f100)
+                {
+                    f100 = true;
+                    p_win = 2*p_win;
+                    c_win = 2*c_win;
+                    p_tie = 2*p_tie;
+                    c_tie = 2*c_tie;
+                    p_lose = 2*p_lose;
+                    c_lose = 2*c_lose;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
 
         new Handler().postDelayed(new Runnable() {
@@ -92,8 +111,8 @@ public class WhoWon extends AppCompatActivity {
                                             tex2.setVisibility(View.VISIBLE);
                                             whowon.setText("Tie game!");
                                             whowon.setVisibility(View.VISIBLE);
-                                            tex1.setText("Your score: +10 points");
-                                            tex2.setText("Coins: +5 coins");
+                                            tex1.setText("Your score: +" +p_tie+" points");
+                                            tex2.setText("Coins: +" +c_tie+" coins");
 
                                             DatabaseReference refe = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
                                             refe.addValueEventListener(new ValueEventListener() {
@@ -106,7 +125,7 @@ public class WhoWon extends AppCompatActivity {
                                                             f3 = true;
                                                             total =  snapshot.getValue().toString();
                                                             Integer score_rl= Integer.parseInt(total);
-                                                            int a = score_rl + 10;
+                                                            int a = score_rl + p_tie;
                                                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
                                                             ref.setValue(a);
                                                         }
@@ -127,7 +146,7 @@ public class WhoWon extends AppCompatActivity {
                                                             f4 = true;
                                                             total = snapshot.getValue().toString();
                                                             Integer score_rl= Integer.parseInt(total);
-                                                            int a = score_rl + 5;
+                                                            int a = score_rl + c_tie;
                                                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("coins");
                                                             ref.setValue(a);
                                                         }
@@ -153,8 +172,8 @@ public class WhoWon extends AppCompatActivity {
                                                 tex2.setVisibility(View.VISIBLE);
                                                 whowon.setText("You lost!");
                                                 whowon.setVisibility(View.VISIBLE);
-                                                tex1.setText("Your score: +5 points");
-                                                tex2.setText("Coins: +1 coins");
+                                                tex1.setText("Your score: +" +p_lose+" points");
+                                                tex2.setText("Coins: +" +c_lose+" coins");
 
                                                 DatabaseReference refe = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
                                                 refe.addValueEventListener(new ValueEventListener() {
@@ -167,7 +186,7 @@ public class WhoWon extends AppCompatActivity {
                                                                 f3 = true;
                                                                 total =  snapshot.getValue().toString();
                                                                 Integer score_rl= Integer.parseInt(total);
-                                                                int a = score_rl + 5;
+                                                                int a = score_rl + p_lose;
                                                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
                                                                 ref.setValue(a);
                                                             }
@@ -188,7 +207,7 @@ public class WhoWon extends AppCompatActivity {
                                                                 f4 = true;
                                                                 total = snapshot.getValue().toString();
                                                                 Integer score_rl= Integer.parseInt(total);
-                                                                int a = score_rl + 1;
+                                                                int a = score_rl + c_lose;
                                                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("coins");
                                                                 ref.setValue(a);
                                                             }
@@ -213,8 +232,8 @@ public class WhoWon extends AppCompatActivity {
                                                 tex2.setVisibility(View.VISIBLE);
                                                 whowon.setText("You won!");
                                                 whowon.setVisibility(View.VISIBLE);
-                                                tex1.setText("Your score: +25 points");
-                                                tex2.setText("Coins: +10 coins");
+                                                tex1.setText("Your score: +" +p_win+" points");
+                                                tex2.setText("Coins: +" +c_win+" coins");
 
 
                                                 DatabaseReference refe = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
@@ -228,7 +247,7 @@ public class WhoWon extends AppCompatActivity {
                                                                 f3 = true;
                                                                 total =  snapshot.getValue().toString();
                                                                 Integer score_rl= Integer.parseInt(total);
-                                                                int a = score_rl + 25;
+                                                                int a = score_rl + p_win;
                                                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("points");
                                                                 ref.setValue(a);
                                                             }
@@ -249,7 +268,7 @@ public class WhoWon extends AppCompatActivity {
                                                                 f4 = true;
                                                                 total = snapshot.getValue().toString();
                                                                 Integer score_rl= Integer.parseInt(total);
-                                                                int a = score_rl + 10;
+                                                                int a = score_rl + c_win;
                                                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id).child("coins");
                                                                 ref.setValue(a);
                                                             }
@@ -260,7 +279,6 @@ public class WhoWon extends AppCompatActivity {
 
                                                     }
                                                 });
-
                                             }
                                         }
                                     }

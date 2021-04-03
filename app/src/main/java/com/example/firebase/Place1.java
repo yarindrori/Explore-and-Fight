@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,14 +25,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Random;
 
 public class Place1 extends AppCompatActivity {
+    private ImageView fif;
     private Boolean f = false , flag_noans = false , flme = false, flop = false;
     private Button place1, place2,place3,place4;
     private CountDownTimer countDownTimer;
-    private TextView tex;
+    private TextView tex,count;
     private String code , id_current, id_op, id, id_combine, delete,score1, score2, score_current,temp , c;
     private FirebaseAuth auth;
     private Boolean flag = false;
     private Boolean flag2 = false;
+    private Boolean f100 = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,8 @@ public class Place1 extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         assert user != null;
         String id = user.getUid();
+        fif = findViewById(R.id.imageView14);
+        count = findViewById(R.id.fif_info6);
         place1  = findViewById(R.id.place1_answer1);
         place2 = findViewById(R.id.place1_answer2);
         place3 = findViewById(R.id.place1_answer3);
@@ -66,6 +72,20 @@ public class Place1 extends AppCompatActivity {
         id_op = intent.getStringExtra("id2");
         id_combine = id_current + id_op;
         delete = id_op + id_current;
+        DatabaseReference y = FirebaseDatabase.getInstance().getReference("fif").child(id);
+        y.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    String howmuch = snapshot.getValue().toString();
+                    count.setText(howmuch);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         DatabaseReference refe = FirebaseDatabase.getInstance().getReference("Match").child(code);
         refe.addValueEventListener(new ValueEventListener() {
@@ -120,6 +140,68 @@ public class Place1 extends AppCompatActivity {
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
                             }
                         });
                         place1.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +273,7 @@ c = place4.getText().toString();
                                 }
                             }
                         });
-                       
+
                         countDownTimer = new CountDownTimer(15000,1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
@@ -441,6 +523,69 @@ c = place4.getText().toString();
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+                                                if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            }
+                        });
                         place1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -509,7 +654,7 @@ c = place4.getText().toString();
                                 }
                             }
                         });
-                       
+
                         countDownTimer = new CountDownTimer(15000,1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
@@ -763,6 +908,70 @@ c = place4.getText().toString();
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            }
+                        });
                         place1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -986,13 +1195,13 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
-                                                                       
+
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -1087,6 +1296,69 @@ c = place4.getText().toString();
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
                             }
                         });
                         place1.setOnClickListener(new View.OnClickListener() {
@@ -1408,6 +1680,69 @@ c = place4.getText().toString();
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            }
+                        });
                         place1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -1644,13 +1979,13 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
-                                                                       
+
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -1671,13 +2006,13 @@ c = place4.getText().toString();
                                                         intent.putExtra("id1",id_current);
                                                         intent.putExtra("id2",id_op);
                                                         intent.putExtra("ran2", ran2);
-                                                        
-                                                       
+
+
                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                         ol.child(id).child("currentscore").setValue(0);
 
-                                                       
-                                                       
+
+
 
 
 
@@ -1742,6 +2077,69 @@ c = place4.getText().toString();
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            }
+                        });
                         place1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -1964,13 +2362,13 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
-                                                                       
+
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -1985,13 +2383,13 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
-                                                                       
+
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -2012,12 +2410,12 @@ c = place4.getText().toString();
                                                         intent.putExtra("id1",id_current);
                                                         intent.putExtra("id2",id_op);
                                                         intent.putExtra("ran2", ran2);
-                                                       
+
                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                         ol.child(id).child("currentscore").setValue(0);
 
-                                                       
-                                                       
+
+
 
 
 
@@ -2082,6 +2480,69 @@ c = place4.getText().toString();
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            }
+                        });
                         place1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -2305,12 +2766,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -2325,12 +2786,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -2351,12 +2812,12 @@ c = place4.getText().toString();
                                                         intent.putExtra("id1",id_current);
                                                         intent.putExtra("id2",id_op);
                                                         intent.putExtra("ran2", ran2);
-                                                        
+
                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                         ol.child(id).child("currentscore").setValue(0);
 
-                                                       
-                                                       
+
+
 
 
 
@@ -2421,6 +2882,69 @@ c = place4.getText().toString();
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            }
+                        });
                         place1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -2644,12 +3168,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -2664,12 +3188,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -2690,12 +3214,12 @@ c = place4.getText().toString();
                                                         intent.putExtra("id1",id_current);
                                                         intent.putExtra("id2",id_op);
                                                         intent.putExtra("ran2", ran2);
-                                                        
+
                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                         ol.child(id).child("currentscore").setValue(0);
 
-                                                       
-                                                       
+
+
 
 
 
@@ -2758,6 +3282,69 @@ c = place4.getText().toString();
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
                             }
                         });
                         place1.setOnClickListener(new View.OnClickListener() {
@@ -2983,12 +3570,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -3003,12 +3590,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -3029,12 +3616,12 @@ c = place4.getText().toString();
                                                         intent.putExtra("id1",id_current);
                                                         intent.putExtra("id2",id_op);
                                                         intent.putExtra("ran2", ran2);
-                                                        
+
                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                         ol.child(id).child("currentscore").setValue(0);
 
-                                                       
-                                                       
+
+
 
 
                                                         startActivity(intent);
@@ -3096,6 +3683,69 @@ c = place4.getText().toString();
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
                             }
                         });
                         place1.setOnClickListener(new View.OnClickListener() {
@@ -3321,12 +3971,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -3341,12 +3991,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -3367,12 +4017,12 @@ c = place4.getText().toString();
                                                         intent.putExtra("id1",id_current);
                                                         intent.putExtra("id2",id_op);
                                                         intent.putExtra("ran2", ran2);
-                                                        
+
                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                         ol.child(id).child("currentscore").setValue(0);
 
-                                                       
-                                                       
+
+
 
 
 
@@ -3435,6 +4085,69 @@ c = place4.getText().toString();
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
                             }
                         });
                         place1.setOnClickListener(new View.OnClickListener() {
@@ -3664,8 +4377,8 @@ c = place4.getText().toString();
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -3680,12 +4393,12 @@ c = place4.getText().toString();
                                                                         intent.putExtra("id1",id_current);
                                                                         intent.putExtra("id2",id_op);
                                                                         intent.putExtra("ran2", ran2);
-                                                                        
+
                                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                                         ol.child(id).child("currentscore").setValue(1);
 
-                                                                       
-                                                                       
+
+
 
 
 
@@ -3706,12 +4419,12 @@ c = place4.getText().toString();
                                                         intent.putExtra("id1",id_current);
                                                         intent.putExtra("id2",id_op);
                                                         intent.putExtra("ran2", ran2);
-                                                        
+
                                                         DatabaseReference ol = FirebaseDatabase.getInstance().getReference("Users");
                                                         ol.child(id).child("currentscore").setValue(0);
 
-                                                       
-                                                       
+
+
 
 
 
@@ -3774,6 +4487,69 @@ c = place4.getText().toString();
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                        fif.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (f100)
+                                    Toast.makeText(getApplicationContext(),"Already used!",Toast.LENGTH_SHORT).show();
+                                DatabaseReference yr = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                yr.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists() && !f100)
+                                        {
+                                            f100 = true;
+                                            String howmuch = snapshot.getValue().toString();
+                                            count.setText(howmuch);
+                                            int how = Integer.parseInt(howmuch);
+                                            if (how > 0)
+                                            {
+                                                DatabaseReference yr2 = FirebaseDatabase.getInstance().getReference("fif").child(id);
+                                                yr2.setValue(how - 1);
+                                                Toast.makeText(getApplicationContext(),"50/50 used!",Toast.LENGTH_SHORT).show();
+                                                if (num == 1)
+                                                {
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+
+ if (num == 2)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place4.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place4.setEnabled(false);
+                                                }
+                                                if (num == 3)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place2.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place2.setEnabled(false);
+                                                }
+                                                if (num == 4)
+                                                {
+                                                    place1.setBackgroundResource(R.drawable.roundwrong);
+                                                    place3.setBackgroundResource(R.drawable.roundwrong);
+                                                    place1.setEnabled(false);
+                                                    place3.setEnabled(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getApplicationContext(),"You don't have a 50/50!",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
                             }
                         });
                         place1.setOnClickListener(new View.OnClickListener() {
