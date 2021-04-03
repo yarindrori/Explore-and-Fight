@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Firebase">
-        <activity android:name=".Shop"></activity>
+        <activity android:name=".fif"></activity>
+        <activity android:name=".Shop" />
         <activity android:name=".BuyVip" />
         <activity android:name=".WhoWon" />
         <activity android:name=".Tie" />

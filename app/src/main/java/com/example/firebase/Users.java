@@ -1,8 +1,8 @@
 package com.example.firebase;
 
 public class Users {
-    String mail, password, username;
-    int coins ,points;
+    protected String mail, password, username;
+    protected int coins ,points;
     Users(){}
 
     public Users(String mail, String password, int coins, int points, String username) {

@@ -179,6 +179,8 @@ public class HomeActivity extends AppCompatActivity {
                                                                    reference.child(auth.getCurrentUser().getUid()).setValue(add);
                                                                    DatabaseReference ref = Node.getReference("Names");
                                                                    ref.child(rl).setValue(rl);
+                                                                   DatabaseReference g = FirebaseDatabase.getInstance().getReference("fif").child(auth.getCurrentUser().getUid());
+                                                                   g.setValue(0);
                                                                    startActivity(new Intent(HomeActivity.this, Homescreen.class));
                                                                    Toast.makeText(getApplicationContext(), "The account was successfully created!", Toast.LENGTH_SHORT).show();
                                                                    finish();

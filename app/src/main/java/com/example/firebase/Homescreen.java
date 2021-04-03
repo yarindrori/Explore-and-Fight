@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,11 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Homescreen extends AppCompatActivity {
     private Button logout;
-    private ImageView vs, ld, shop;
+    private ImageView vs, ld, shop, vop;
     private FirebaseAuth auth;
     private DatabaseReference ref;
     private TextView tx;
     private String name = null;
+    private Boolean f = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +37,15 @@ public class Homescreen extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         logout = findViewById(R.id.logout_btn);
         vs = findViewById(R.id.vsimg);
+        vop = findViewById(R.id.imageView13);
         shop = findViewById(R.id.image_shop);
         tx = findViewById(R.id.player);
         ld = findViewById(R.id.ldimg);
         String id = user.getUid();
+        vop.setVisibility(View.GONE);
+
+
+
         try {
             Intent intent1 = getIntent();
             String y = intent1.getStringExtra("key");
@@ -63,6 +70,22 @@ public class Homescreen extends AppCompatActivity {
         }
         catch (Exception e)
         {}
+        // מראה שם מוזהב ותג vip
+        DatabaseReference r = FirebaseDatabase.getInstance().getReference("VIP Users").child(id);
+        r.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && !f)
+                {
+                    tx.setTextColor(getResources().getColor(R.color.gold));
+                    vop.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         ref = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
         ref.addValueEventListener(new ValueEventListener() {

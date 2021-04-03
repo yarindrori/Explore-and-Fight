@@ -102,7 +102,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         };
 
 
-        countDownTimer = new CountDownTimer(6000,1000) { // 2sec delay so 12 for 10 sec
+        countDownTimer = new CountDownTimer(3000,1000) { // 2sec delay so 12 for 10 sec
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:" + millisUntilFinished/1000 + " sec");
