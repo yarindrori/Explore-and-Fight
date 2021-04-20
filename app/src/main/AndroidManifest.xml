@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Firebase">
-        <activity android:name=".fif"></activity>
+        <activity android:name=".Leaderboards"></activity>
+        <activity android:name=".fif" />
         <activity android:name=".Shop" />
         <activity android:name=".BuyVip" />
         <activity android:name=".WhoWon" />
@@ -44,6 +45,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

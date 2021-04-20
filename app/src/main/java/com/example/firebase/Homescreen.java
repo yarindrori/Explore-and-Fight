@@ -122,7 +122,8 @@ public class Homescreen extends AppCompatActivity {
         ld.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(Homescreen.this, Leaderboards.class));
+                finish();
             }
         });
     }
