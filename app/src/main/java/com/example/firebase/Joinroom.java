@@ -54,11 +54,22 @@ public class Joinroom extends AppCompatActivity {
                 code = editText.getText().toString();
                 if (code.length() == 5)
                 {
+                    DatabaseReference ref6 = FirebaseDatabase.getInstance().getReference("temp").child(code);
+                    ref6.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists())
+                                id2 = snapshot.getValue().toString();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                     ref.child("Rooms").child(code).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists())
+                            if(snapshot.exists() && !id.equals(id2))
                             {
                                 joincode.setEnabled(false);
                                 goback.setEnabled(false);
@@ -68,17 +79,7 @@ public class Joinroom extends AppCompatActivity {
                                 FirebaseDatabase Node = FirebaseDatabase.getInstance();
                                 DatabaseReference rik = Node.getReference("waitroom");
                                 rik.child(code).setValue(id);
-                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("temp").child(code);
-                                ref.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.exists())
-                                        id2 = snapshot.getValue().toString();
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                    }
-                                });
+
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -125,9 +126,13 @@ public class Joinroom extends AppCompatActivity {
                                     }
                                 },850);
                             }
+                            else if (id.equals(id2))
+                            {
+                                Toast.makeText(getApplicationContext(), "Can't play against the same player!", Toast.LENGTH_SHORT).show();
+                            }
                             else
                             {
-                                Toast.makeText(getApplicationContext(), "Invalid code!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Invalid code!", Toast.LENGTH_SHORT).show();
                             }
                         }
 

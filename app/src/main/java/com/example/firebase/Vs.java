@@ -82,7 +82,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         tex1.setVisibility(View.GONE);
         tex = findViewById(R.id.textView7);
         a = String.valueOf((Math.floor(Math.random() * 10)+1));
-        countDownTimer1 = new CountDownTimer(4000,600) {
+        countDownTimer1 = new CountDownTimer(4000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:");
@@ -102,7 +102,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         };
 
 
-        countDownTimer = new CountDownTimer(3000,1000) { // 2sec delay so 12 for 10 sec
+        countDownTimer = new CountDownTimer(26000,1000) { // 2sec delay so 12 for 10 sec
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:" + millisUntilFinished/1000 + " sec");

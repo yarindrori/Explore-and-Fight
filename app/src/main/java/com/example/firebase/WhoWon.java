@@ -294,7 +294,7 @@ public class WhoWon extends AppCompatActivity {
                     }
                 });
             }
-        },1500);
+        },2000);
 
 
 

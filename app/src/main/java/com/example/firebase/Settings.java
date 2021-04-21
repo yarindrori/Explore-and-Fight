@@ -103,7 +103,7 @@ public class Settings extends AppCompatActivity {
                         stopService(new Intent(Settings.this,MusicService.class));
                         DatabaseReference rem = FirebaseDatabase.getInstance().getReference("Taken");
                         rem.child(id).child("music").removeValue();
-                        Toast.makeText(getApplicationContext(),"Stopped!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Music stopped!", Toast.LENGTH_SHORT).show();
                     }
 
             }
@@ -113,16 +113,16 @@ public class Settings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (busy.isChecked() && d2)
                 {
+                    Toast.makeText(getApplicationContext(),"Do not disturb- on!", Toast.LENGTH_SHORT).show();
                     DatabaseReference set2 = FirebaseDatabase.getInstance().getReference("Taken");
                     set2.child(id).child("busy").setValue("");
-
-
-
                 }
                 else if(!isChecked)
                 {
+                    d2 = true;
                     DatabaseReference rem = FirebaseDatabase.getInstance().getReference("Taken");
                     rem.child(id).child("busy").removeValue();
+                    Toast.makeText(getApplicationContext(),"Do not disturb- off!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

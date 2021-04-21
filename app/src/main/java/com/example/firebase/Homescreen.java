@@ -2,7 +2,9 @@ package com.example.firebase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +36,9 @@ public class Homescreen extends AppCompatActivity {
     private Boolean f1 = false, f2 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
         auth = FirebaseAuth.getInstance();
