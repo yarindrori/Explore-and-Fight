@@ -1,10 +1,14 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +33,7 @@ public class Settings extends AppCompatActivity {
     private Boolean f1 = false;
     private Boolean f2 = false;
     private Boolean d = true;
+    private Boolean d2 = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,7 @@ public class Settings extends AppCompatActivity {
                     f2 = true;
                     if (snapshot.exists())
                     {
+                        d2 = false;
                         busy.setChecked(true);
                     }
                 }
@@ -85,7 +91,8 @@ public class Settings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked && d)
                     {
-                        startService(new Intent(Settings.this,MusicService.class));
+                        if (!isMyServiceRunning(MusicService.class))
+                            startService(new Intent(Settings.this,MusicService.class));
                         DatabaseReference set = FirebaseDatabase.getInstance().getReference("Taken");
                         set.child(id).child("music").setValue("");
                         Toast.makeText(getApplicationContext(),"Music running!", Toast.LENGTH_SHORT).show();
@@ -104,7 +111,7 @@ public class Settings extends AppCompatActivity {
         busy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (busy.isChecked())
+                if (busy.isChecked() && d2)
                 {
                     DatabaseReference set2 = FirebaseDatabase.getInstance().getReference("Taken");
                     set2.child(id).child("busy").setValue("");
@@ -112,7 +119,7 @@ public class Settings extends AppCompatActivity {
 
 
                 }
-                else
+                else if(!isChecked)
                 {
                     DatabaseReference rem = FirebaseDatabase.getInstance().getReference("Taken");
                     rem.child(id).child("busy").removeValue();
@@ -131,5 +138,14 @@ public class Settings extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

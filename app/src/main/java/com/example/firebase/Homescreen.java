@@ -3,6 +3,8 @@ package com.example.firebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class Homescreen extends AppCompatActivity {
     private TextView tx;
     private String name = null;
     private Boolean f = false;
+    private Boolean f1 = false, f2 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +47,40 @@ public class Homescreen extends AppCompatActivity {
         ld = findViewById(R.id.ldimg);
         String id = user.getUid();
         vop.setVisibility(View.GONE);
+        DatabaseReference taken = FirebaseDatabase.getInstance().getReference("Taken");
+        taken.child(id).child("music").addValueEventListener(new ValueEventListener() { // מפעיל מוזיקה
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!f1)
+                {
+                    f1 =true;
+                    if (snapshot.exists())
+                    {
+                        if (!isMyServiceRunning(MusicService.class))
+                        startService(new Intent(Homescreen.this,MusicService.class));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        taken.child(id).child("busy").addValueEventListener(new ValueEventListener() { // מפעיל מוזיקה
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!f2)
+                {
+                    f2 =true;
+                    if (snapshot.exists())
+                    {
 
-
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         try {
             Intent intent1 = getIntent();
@@ -138,5 +173,14 @@ public class Homescreen extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

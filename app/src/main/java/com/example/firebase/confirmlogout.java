@@ -35,6 +35,7 @@ public class confirmlogout extends AppCompatActivity {
                 if(user != null) {
                     Toast.makeText(getApplicationContext(), "Logout from:" + " " + user.getEmail(), Toast.LENGTH_LONG).show();
                     auth.signOut();
+                    stopService(new Intent(confirmlogout.this,MusicService.class));
                     startActivity(new Intent(confirmlogout.this, LoginActivity.class));
                     finish();
                 }
