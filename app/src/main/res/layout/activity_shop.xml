@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/coins"
-        android:layout_width="80dp"
+        android:layout_width="64dp"
         android:layout_height="52dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -39,10 +39,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintHorizontal_bias="0.821"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="0.165" />
 
     <ImageView
         android:id="@+id/image_vip"
@@ -95,7 +95,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.127"
+        app:layout_constraintVertical_bias="0.138"
         app:srcCompat="@drawable/rra" />
 
     <ImageView

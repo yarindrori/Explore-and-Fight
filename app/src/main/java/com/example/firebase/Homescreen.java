@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Homescreen extends AppCompatActivity {
     private Button logout;
-    private ImageView vs, ld, shop, vop;
+    private ImageView vs, ld, shop, vop, settings;
     private FirebaseAuth auth;
     private DatabaseReference ref;
     private TextView tx;
@@ -35,6 +35,7 @@ public class Homescreen extends AppCompatActivity {
         setContentView(R.layout.activity_homescreen);
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
+        settings = findViewById(R.id.img_settings);
         logout = findViewById(R.id.logout_btn);
         vs = findViewById(R.id.vsimg);
         vop = findViewById(R.id.imageView13);
@@ -116,6 +117,13 @@ public class Homescreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Homescreen.this, Createorjoin.class));
+                finish();
+            }
+        });
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Homescreen.this, Settings.class));
                 finish();
             }
         });

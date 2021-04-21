@@ -13,14 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Firebase">
-        <activity android:name=".Leaderboards"></activity>
+        <activity android:name=".Settings"></activity>
+        <activity android:name=".Leaderboards" />
         <activity android:name=".fif" />
         <activity android:name=".Shop" />
         <activity android:name=".BuyVip" />
         <activity android:name=".WhoWon" />
-        <activity android:name=".Tie" />
-        <activity android:name=".Lost" />
-        <activity android:name=".Win" />
         <activity android:name=".Place1" />
         <activity android:name=".Joinroom" />
         <activity android:name=".Createorjoin" />
@@ -49,6 +47,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".MusicService" />
     </application>
 
 </manifest>

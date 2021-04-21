@@ -117,7 +117,7 @@ public class Leaderboards extends AppCompatActivity {
                    String name = post.getValue().toString();
                     if (!name.equals("0"))
                     {
-                        name = name.substring(name.indexOf("e=")+2);
+                        name = name.substring(name.indexOf("me=")+3);
                         name = name.substring(0, name.indexOf("}"));
                         s.push(name);
                         Log.d("name","value is "+ name);
