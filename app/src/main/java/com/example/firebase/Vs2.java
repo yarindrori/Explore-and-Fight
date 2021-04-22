@@ -89,7 +89,7 @@ public class Vs2 extends AppCompatActivity implements OnStreetViewPanoramaReadyC
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:");
-                tex1.setText(""+millisUntilFinished/1000);
+                tex1.setText("  "+millisUntilFinished/1000);
             }
 
             @Override

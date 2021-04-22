@@ -12,20 +12,14 @@
         android:id="@+id/imageView22"
         android:layout_width="216dp"
         android:layout_height="246dp"
-        android:layout_marginStart="113dp"
-        android:layout_marginLeft="113dp"
-        android:layout_marginTop="194dp"
-        android:layout_marginEnd="82dp"
-        android:layout_marginRight="82dp"
-        android:layout_marginBottom="163dp"
         android:elevation="5dp"
         android:src="@drawable/line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.526" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logout_btn"
@@ -50,87 +44,59 @@
 
     <TextView
         android:id="@+id/infld"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="387dp"
-        android:layout_marginEnd="204dp"
-        android:layout_marginRight="204dp"
-        android:layout_marginBottom="173dp"
+        android:layout_width="195dp"
+        android:layout_height="44dp"
         android:text="Leaderboards"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.701" />
 
     <TextView
         android:id="@+id/infld2"
         android:layout_width="93dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="287dp"
-        android:layout_marginLeft="287dp"
-        android:layout_marginTop="388dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        android:layout_marginBottom="175dp"
         android:text=" Play"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.696" />
 
     <ImageView
         android:id="@+id/ldimg"
         android:layout_width="189dp"
         android:layout_height="174dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="220dp"
-        android:layout_marginEnd="210dp"
-        android:layout_marginRight="210dp"
-        android:layout_marginBottom="208dp"
         android:elevation="5dp"
         android:src="@drawable/ldpng"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51" />
 
     <ImageView
         android:id="@+id/vsimg"
         android:layout_width="182dp"
         android:layout_height="169dp"
-        android:layout_marginStart="218dp"
-        android:layout_marginLeft="218dp"
-        android:layout_marginTop="218dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="210dp"
         android:elevation="5dp"
         android:src="@drawable/vspng"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.506" />
 
     <TextView
         android:id="@+id/player2"

@@ -281,6 +281,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -688,6 +692,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -1096,6 +1104,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -1502,6 +1514,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -1908,6 +1924,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -2314,6 +2334,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -2718,6 +2742,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -3123,6 +3151,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -3528,6 +3560,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -3933,6 +3969,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -4338,6 +4378,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
@@ -4743,6 +4787,10 @@ public class Place2 extends AppCompatActivity {
                             }
                             @Override
                             public void onFinish() {
+                                place1.setEnabled(false);
+                                place2.setEnabled(false);
+                                place3.setEnabled(false);
+                                place4.setEnabled(false);
                                 if (!flag_noans)
                                 {
                                     DatabaseReference noans = FirebaseDatabase.getInstance().getReference("Score").child(code).child(id_current);
