@@ -10,10 +10,6 @@ public class Vipuser extends Users{
     }
 
     @Override
-    public String getUsername() {
-        return super.getUsername();
-    }
-    @Override
     public void setUsername(String username) {
         super.setUsername(username);
     }

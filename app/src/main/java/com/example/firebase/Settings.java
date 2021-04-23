@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Set;
+
 public class Settings extends AppCompatActivity {
     private Button change_name;
     private Switch music, busy;
@@ -46,7 +48,6 @@ public class Settings extends AppCompatActivity {
         music = findViewById(R.id.switch_music);
         busy = findViewById(R.id.switch_dontdisturb);
         DatabaseReference r = FirebaseDatabase.getInstance().getReference("Taken");
-
         r.child(id).child("music").addValueEventListener(new ValueEventListener() { // בודק אם שינית בעבר
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -124,6 +125,13 @@ public class Settings extends AppCompatActivity {
                     rem.child(id).child("busy").removeValue();
                     Toast.makeText(getApplicationContext(),"Do not disturb- off!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        change_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.this, ChangeName.class));
+                finish();
             }
         });
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener stateListener;
     private CheckBox checkBox;
     private ImageView imageView;
+    private Boolean f = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

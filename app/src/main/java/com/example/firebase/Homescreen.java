@@ -52,6 +52,7 @@ public class Homescreen extends AppCompatActivity {
         ld = findViewById(R.id.ldimg);
         String id = user.getUid();
         vop.setVisibility(View.GONE);
+
         DatabaseReference taken = FirebaseDatabase.getInstance().getReference("Taken");
         taken.child(id).child("music").addValueEventListener(new ValueEventListener() { // מפעיל מוזיקה
             @Override
@@ -63,22 +64,6 @@ public class Homescreen extends AppCompatActivity {
                     {
                         if (!isMyServiceRunning(MusicService.class))
                         startService(new Intent(Homescreen.this,MusicService.class));
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        taken.child(id).child("busy").addValueEventListener(new ValueEventListener() { // מפעיל מוזיקה
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!f2)
-                {
-                    f2 =true;
-                    if (snapshot.exists())
-                    {
-
                     }
                 }
             }
@@ -111,6 +96,7 @@ public class Homescreen extends AppCompatActivity {
         }
         catch (Exception e)
         {}
+
         // מראה שם מוזהב ותג vip
         DatabaseReference r = FirebaseDatabase.getInstance().getReference("VIP Users").child(id);
         r.addValueEventListener(new ValueEventListener() {
@@ -118,11 +104,11 @@ public class Homescreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists() && !f)
                 {
+                    f = true;
                     tx.setTextColor(getResources().getColor(R.color.gold));
                     vop.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
