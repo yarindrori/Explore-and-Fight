@@ -37,6 +37,8 @@ public class Leaderboards extends AppCompatActivity {
     private String dm ;
     private int a =5;
     private Boolean f = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,19 +141,19 @@ public class Leaderboards extends AppCompatActivity {
                        if (snapshot.exists() && !f)
                        {
                            f = true;
-                           String y = snapshot.child("username").getValue().toString();
+                           String y = snapshot.child("username").getValue().toString(); // שם של מי שצריך לבדוק
                            if(!s.isEmpty() && !s2.isEmpty())
                            {
-                               if (s.peek().equals(y)) // 1
+                               LeaderboardsClass ld = new LeaderboardsClass(s,svip);
+                               LeaderboardsWinner winner = new LeaderboardsWinner(ld.getS(),ld.getSvip(),false); // false כי הוא לא בטוח מנצח
+                               if(winner.IsWinner(y)) // אם אתה הווינר
                                {
-                                   y1.setVisibility(View.VISIBLE);
+                                   y1.setVisibility(View.VISIBLE); // עושה set שזה אתה
                                }
-                               if (svip.contains(s.peek()))
-                               {
-                                   tex1.setTextColor(getResources().getColor(R.color.gold));
-                               }
+                               tex1.setTextColor(getResources().getColor(R.color.red)); // אם הוא מנצח הוא בצבע אדום!
                                tex1.setText(s.pop());
                                tex6.setText("←" + String.valueOf(s2.pop()));
+
                            }
                            else
                            {
