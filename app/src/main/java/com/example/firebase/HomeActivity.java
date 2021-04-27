@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     if(!flag)
                     {
-                        Toast.makeText(getApplicationContext(), "Invaild email!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Invalid email!", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Please Enter a username!", Toast.LENGTH_SHORT).show();
@@ -125,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (rn.isEmpty()) {
                             if(!flag)
                             {
-                                Toast.makeText(getApplicationContext(), "Invaild email!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Invalid email!", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 Toast.makeText(getApplicationContext(), "Please Enter a password!", Toast.LENGTH_SHORT).show();
@@ -135,11 +135,11 @@ public class HomeActivity extends AppCompatActivity {
                         {
                             if(!flag)
                             {
-                                Toast.makeText(getApplicationContext(), "Invaild email!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Invalid email!", Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
-                                if ((rl.length() > 3 && rl.length() < 11))
+                                if ((rl.length() > 2 && rl.length() < 9) && rl.matches(".*[a-z].*")) // בודק אם השם מכיל a-z וגם גדול מ 2 וקטן מ 9
                                 {
                                     if(rn.length() > 13)
                                     {
@@ -196,13 +196,20 @@ public class HomeActivity extends AppCompatActivity {
                                        }
                                        catch (Exception e)
                                        {
-                                           Toast.makeText(getApplicationContext(), "Invaild username!", Toast.LENGTH_SHORT).show();
+                                           Toast.makeText(getApplicationContext(), "Invalid username!", Toast.LENGTH_SHORT).show();
                                        }
                                     }
                                 }
                                 else
                                 {
-                                    Toast.makeText(getApplicationContext(), "Username must be between 4-10 char long!", Toast.LENGTH_SHORT).show();
+                                    if (!rl.matches(".*[a-z].*"))
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Invalid username!", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Username must be between 3-8 char long!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         }

@@ -1,12 +1,7 @@
 package com.example.firebase;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +9,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.dynamic.IFragmentWrapper;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,7 +70,7 @@ public class ChangeName extends AppCompatActivity {
                     String n = edit_name.getText().toString();
                     String rn = n.replaceAll(" ", "");
                     edit_name.setText(rn);
-                    if ((rn.length() > 3 && rn.length() < 11))
+                    if ((rn.length() > 2 && rn.length() < 9) && rn.matches(".*[a-z].*"))
                     {
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                         ref.child("Names").child(rn).addValueEventListener(new ValueEventListener() {
@@ -109,7 +107,14 @@ public class ChangeName extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "Username must be between 4-10 char long!", Toast.LENGTH_SHORT).show();
+                        if (!rn.matches(".*[a-z].*"))
+                        {
+                            Toast.makeText(getApplicationContext(), "Invalid username!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "Username must be between 3-8 char long!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
             }
@@ -128,7 +133,7 @@ public class ChangeName extends AppCompatActivity {
                                     String n = edit_name.getText().toString();
                                     String rn = n.replaceAll(" ", "");
                                     edit_name.setText(rn);
-                                    if ((rn.length() > 3 && rn.length() < 11))
+                                    if ((rn.length() > 2 && rn.length() < 9) && rn.matches(".*[a-z].*"))
                                     {
                                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                                         ref.child("Names").child(rn).addValueEventListener(new ValueEventListener() {
@@ -165,7 +170,14 @@ public class ChangeName extends AppCompatActivity {
                                     }
                                     else
                                     {
-                                        Toast.makeText(getApplicationContext(), "Username must be between 4-10 char long!", Toast.LENGTH_SHORT).show();
+                                        if (!rn.matches(".*[a-z].*"))
+                                        {
+                                            Toast.makeText(getApplicationContext(), "Invalid username!", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(getApplicationContext(), "Username must be between 3-8 char long!", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
                             })
