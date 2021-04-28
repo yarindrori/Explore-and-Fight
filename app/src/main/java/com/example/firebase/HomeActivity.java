@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                if ((rl.length() > 2 && rl.length() < 9) && rl.matches(".*[a-z].*")) // בודק אם השם מכיל a-z וגם גדול מ 2 וקטן מ 9
+                                if ((rl.length() > 2 && rl.length() < 9) && rl.matches(".*[a-z].*") ) // בודק אם השם מכיל a-z וגם גדול מ 2 וקטן מ 9
                                 {
                                     if(rn.length() > 13)
                                     {

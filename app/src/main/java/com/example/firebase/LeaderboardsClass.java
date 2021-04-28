@@ -3,8 +3,8 @@ package com.example.firebase;
 import java.util.Stack;
 
 public class LeaderboardsClass {
-    private Stack<String> s;
-    private Stack<String> svip;
+    protected Stack<String> s;
+    protected Stack<String> svip;
     public LeaderboardsClass(Stack<String> s, Stack<String> svip)
     {
         this.s = s;
