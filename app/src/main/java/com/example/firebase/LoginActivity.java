@@ -53,8 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         btnclearMail = findViewById(R.id.login_clearMail);
         btnclearPass = findViewById(R.id.login_clearPass);
         checkBox = findViewById(R.id.show_pass);
-        login_mail.setText("a@gmail.com");
-        login_pass.setText("math2323");
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
