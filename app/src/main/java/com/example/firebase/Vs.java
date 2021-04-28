@@ -32,7 +32,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
 
     private LatLng l1 = new LatLng(13.41241963977408,103.8681012543761); // Cambodia
     private LatLng l2 = new LatLng(-33.85803087516396,151.21450292817096); // Sydney
-    private LatLng l3 = new LatLng(48.86060891918641,2.2908821980026883); // Paris
+    private LatLng l3 = new LatLng(48.86069185564439,2.2908392866548306); // Paris
     private LatLng l4 = new LatLng(-13.165033540843705,-72.54456280018185); // Peru
     private LatLng l5 = new LatLng(55.75304029974323,37.62224150108071); // Moscow
     private LatLng l6 = new LatLng(-27.125633026348023,-109.27719045831813); // Chile
@@ -102,7 +102,7 @@ public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCa
         };
 
 
-        countDownTimer = new CountDownTimer(26000,1000) { // 2sec delay so 12 for 10 sec
+        countDownTimer = new CountDownTimer(22000,1000) { // 2sec delay so 12 for 10 sec
             @Override
             public void onTick(long millisUntilFinished) {
                 tex.setText("Time left:" + millisUntilFinished/1000 + " sec");
