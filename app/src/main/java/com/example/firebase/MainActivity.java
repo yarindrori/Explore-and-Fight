@@ -35,11 +35,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     @Override
-    public void onBackPressed() {
-
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.odot)
         {
@@ -54,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+
     }
 }
 
