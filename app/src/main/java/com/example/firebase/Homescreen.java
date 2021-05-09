@@ -96,7 +96,6 @@ public class Homescreen extends AppCompatActivity {
         }
         catch (Exception e)
         {}
-
         // מראה שם מוזהב ותג vip
         DatabaseReference r = FirebaseDatabase.getInstance().getReference("VIP Users").child(id);
         r.addValueEventListener(new ValueEventListener() {
@@ -105,8 +104,17 @@ public class Homescreen extends AppCompatActivity {
                 if (snapshot.exists() && !f)
                 {
                     f = true;
-                    tx.setTextColor(getResources().getColor(R.color.gold));
-                    vop.setVisibility(View.VISIBLE);
+                    Vipuser vipuser = new Vipuser(snapshot.child("mail").getValue().toString(),snapshot.child("password").getValue().toString(),Integer.parseInt(snapshot.child("coins").getValue().toString()),Integer.parseInt(snapshot.child("points").getValue().toString()),snapshot.child("username").getValue().toString(), (Boolean)snapshot.child("access").getValue());
+                    if (vipuser.getAccess() == true)
+                    {
+                        tx.setTextColor(getResources().getColor(R.color.gold));
+                        vop.setVisibility(View.VISIBLE);
+                    }
+                    else
+                        {
+                        // אתה לא VIP ואין צורך להציג מוזהב ותג vip
+                    }
+
                 }
             }
             @Override

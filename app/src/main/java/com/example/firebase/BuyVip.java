@@ -111,10 +111,11 @@ public class BuyVip extends AppCompatActivity {
                                                                                             f6 = true;
                                                                                             String name = snapshot.getValue().toString();
                                                                                             Vipuser vip = new Vipuser(mail,pass,Integer.parseInt(coins),Integer.parseInt(points),name,true);
+
                                                                                             // vip.getUsername() משתמש בפעולה של user .
                                                                                             Toast.makeText(getApplicationContext(),vip.getUsername() + ", " +"You are now VIP!", Toast.LENGTH_SHORT).show();
                                                                                             DatabaseReference v = FirebaseDatabase.getInstance().getReference("VIP Users");
-                                                                                            v.child(id).setValue(vip);
+                                                                                            v.child(id).setValue(vip); // שם את העצם בפיירבייס
                                                                                             DatabaseReference vr = FirebaseDatabase.getInstance().getReference("fif").child(id);
                                                                                             vr.addValueEventListener(new ValueEventListener() {
                                                                                                 @Override
