@@ -43,4 +43,15 @@ public class Users {
     public void setPoints(int points) {
         this.points = points;
     }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", coins=" + coins +
+                ", points=" + points +
+                '}';
+    }
 }

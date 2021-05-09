@@ -34,6 +34,8 @@ public class Leaderboards extends AppCompatActivity {
     private Stack<String> s = new Stack<String>();
     private Stack<String> svip = new Stack<String>();
     private Stack<Integer> s2 = new Stack<Integer>();
+    private Stack<LeaderboardsUser> leed = new Stack<LeaderboardsUser>();
+    private Stack<LeaderboardsUser> leed2 = new Stack<LeaderboardsUser>();
     private String dm ;
     private int a =5;
     private Boolean f = false;
@@ -79,6 +81,28 @@ public class Leaderboards extends AppCompatActivity {
         tex12.setVisibility(View.GONE);
         tex13.setVisibility(View.GONE);
         tex14.setVisibility(View.GONE);
+        // שמות כל המשתמשים
+        DatabaseReference users_name = FirebaseDatabase.getInstance().getReference("Users");
+        users_name.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1: snapshot.getChildren())
+                {
+                    String name = snapshot1.getValue().toString();
+                    if (!name.equals("0"))
+                    {
+                        name = name.substring(name.indexOf("me=")+3);
+                        name = name.substring(0, name.indexOf("}"));
+                        Log.d("names are","names are "+ name);
+                        LeaderboardsUser users = new LeaderboardsUser(name,0);
+                        leed.push(users);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         // vip check
         DatabaseReference rvip = FirebaseDatabase.getInstance().getReference("VIP Users");
         Query qvip = rvip.orderByChild("points");
@@ -99,7 +123,6 @@ public class Leaderboards extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         goback.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +157,7 @@ public class Leaderboards extends AppCompatActivity {
                         Log.d("points","points "+ points);
                     }
                 }
+
                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id);
                ref.addValueEventListener(new ValueEventListener() {
                    @Override
@@ -144,16 +168,37 @@ public class Leaderboards extends AppCompatActivity {
                            String y = snapshot.child("username").getValue().toString(); // שם של מי שצריך לבדוק
                            if(!s.isEmpty() && !s2.isEmpty())
                            {
-                               LeaderboardsClass ld = new LeaderboardsClass(s,svip);
-                               LeaderboardsWinner winner = new LeaderboardsWinner(ld.getS(),ld.getSvip(),false); // false כי הוא לא בטוח מנצח
-                               if(winner.IsWinner(y)) // אם אתה הווינר
+                               while (!leed.isEmpty())
                                {
-                                   y1.setVisibility(View.VISIBLE); // עושה set שזה אתה
+                                   if ((leed.peek().getS()).equals(s.peek())) // אם נמצא מקום 1
+                                   {
+                                       LeaderboardsWinner winner = new LeaderboardsWinner(s.peek(),s2.peek(),true);
+                                       leed2.push(winner);
+                                       leed.pop();
+                                   }
+                                   else
+                                   {
+                                       leed2.push(leed.pop());
+                                   }
                                }
-                               tex1.setTextColor(getResources().getColor(R.color.red)); // אם הוא מנצח הוא בצבע אדום!
+                               while (!leed2.isEmpty())
+                               {
+                                   if((leed2.peek()) instanceof LeaderboardsWinner)
+                                   {
+                                       tex1.setTextColor(getResources().getColor(R.color.red));
+                                       leed2.pop();
+                                   }
+                                   else
+                                   {
+                                       leed2.pop();
+                                   }
+                               }
+                               if(s.peek().equals(y))
+                               {
+                                   y1.setVisibility(View.VISIBLE);
+                               }
                                tex1.setText(s.pop());
                                tex6.setText("←" + String.valueOf(s2.pop()));
-
                            }
                            else
                            {

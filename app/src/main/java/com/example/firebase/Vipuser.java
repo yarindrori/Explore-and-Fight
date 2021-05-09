@@ -18,5 +18,4 @@ public class Vipuser extends Users{
     public String toString() {
         return super.toString();
     }
-
 }

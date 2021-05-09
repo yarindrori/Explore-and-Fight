@@ -2,10 +2,10 @@ package com.example.firebase;
 
 import java.util.Stack;
 
-public class LeaderboardsWinner extends LeaderboardsClass  {
+public class LeaderboardsWinner extends LeaderboardsUser  {
     private Boolean winner;
-    public LeaderboardsWinner(Stack<String> s, Stack<String> svip, Boolean winner) {
-        super(s, svip);
+    public LeaderboardsWinner(String s, Integer s2, Boolean winner) {
+        super(s, s2);
         this.winner = winner;
     }
     public Boolean getWinner() {
@@ -14,12 +14,11 @@ public class LeaderboardsWinner extends LeaderboardsClass  {
     public void setWinner(Boolean winner) {
         this.winner = winner;
     }
-    public Boolean IsWinner(String name) // פעולה שמקבלת שם ובודקת אם הוא מנצח (מקום 1) -
-    {
-        if (name.equals(super.getS().peek()))
-        {
-           winner = true; // אם הוא מקום 1 אז הוא winner
-        }
-        return winner; // אם כן מחזירה true ואם לא אז false
+
+    @Override
+    public String toString() {
+        return "LeaderboardsWinner{" +
+                "winner=" + winner +
+                '}';
     }
 }
