@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,11 +35,21 @@ import java.util.Stack;
 public class Leaderboards extends AppCompatActivity {
     private TextView tex1, tex2 , tex3 , tex4 , tex5 , tex6 , tex7 , tex8 , tex9 , tex10 ,tex11,tex12,tex13, tex14;
     private TextView y1,y2,y3,y4,y5;
+    private EditText search_text;
+    private Button search;
+    private Button clear;
     private ImageView goback;
     private FirebaseAuth auth;
     private Stack<String> s = new Stack<String>();
     private Stack<Integer> s2 = new Stack<Integer>();
     private Stack<Users> usersStack = new Stack<Users>();
+    private Stack<LeaderboardsUser> leaderboardsUsers = new Stack<LeaderboardsUser>();
+    private Stack<String> scopy;
+    private Stack<Integer> s2copy;
+    private Stack<Users> usersStackcopy;
+    private Stack<String> stemp;
+    private Stack<Integer> s2temp;
+    private Stack<Users> usersStacktemp;
     private Boolean f = false;
 
 
@@ -44,6 +57,9 @@ public class Leaderboards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboards);
+        search = findViewById(R.id.search_user);
+        search_text = findViewById(R.id.searchplayer);
+        clear = findViewById(R.id.clear_user);
         auth = FirebaseAuth.getInstance();
         String id = auth.getCurrentUser().getUid();
         // top
@@ -80,6 +96,34 @@ public class Leaderboards extends AppCompatActivity {
         tex12.setVisibility(View.GONE);
         tex13.setVisibility(View.GONE);
         tex14.setVisibility(View.GONE);
+         DatabaseReference poper = FirebaseDatabase.getInstance().getReference("Users");
+                poper.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot snapshot1:snapshot.getChildren())
+                        {
+                            String name = snapshot1.getValue().toString();
+                            if (!name.equals("0"))
+                            {
+                                name = name.substring(name.indexOf("me=")+3);
+                                name = name.substring(0, name.indexOf("}"));
+                                LeaderboardsUser user = new LeaderboardsUser(name);
+                                leaderboardsUsers.push(user);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_text.setText("");
+            }
+        });
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +131,12 @@ public class Leaderboards extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
+
+
+
         DatabaseReference r = FirebaseDatabase.getInstance().getReference("Users");
         Query q = r.orderByChild("points");
         q.addValueEventListener(new ValueEventListener() {
@@ -147,7 +197,9 @@ public class Leaderboards extends AppCompatActivity {
                        }
                    }
                 }
-
+                scopy = cloneStringStack(s);
+                s2copy = cloneIntegerStack(s2);
+                usersStackcopy = cloneUsersStack(usersStack);
                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id);
                ref.addValueEventListener(new ValueEventListener() {
                    @Override
@@ -264,7 +316,6 @@ public class Leaderboards extends AppCompatActivity {
                                    tex13.setText(String.valueOf(placement)+".");
                                    tex14.setText("←" +String.valueOf(s2.pop()));
 
-
                                }
                                else
                                {
@@ -286,7 +337,115 @@ public class Leaderboards extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stemp = cloneStringStack(scopy);
+                s2temp = cloneIntegerStack(s2copy);
+                usersStacktemp = cloneUsersStack(usersStackcopy);
+                String find = search_text.getText().toString();
+                Stack<LeaderboardsUser> temp = cloneLeaderboardsUserStack(leaderboardsUsers);
+                LeaderboardsSearched search = new LeaderboardsSearched(find,false,temp);
+                search.setFound(search.IsExist(find));
+                if (search.getFound())
+                {
+                    Toast.makeText(getApplicationContext(),"User found!",Toast.LENGTH_SHORT).show();
+                    // שכפול המחסניות
+                    Log.d("working=",search.getFound().toString());
+                    int placement1 = 1;
+                    while (!stemp.isEmpty() && !s2temp.isEmpty() && !usersStacktemp.isEmpty())
+                    {
+                        Log.d("working=","okokok");
+                        if(stemp.peek().equals(find))
+                        {
+                            if (usersStacktemp.peek() instanceof Vipuser)
+                            {
+                                tex12.setTextColor(getResources().getColor(R.color.gold)); // VIP
+                            }
+                            usersStacktemp.pop();
+                            tex11.setText("Result ↓");
+                            tex12.setText(find);
+                            tex13.setText(String.valueOf(placement1)+".");
+                            tex14.setText("←" +String.valueOf(s2temp.peek()));
+                            tex11.setVisibility(View.VISIBLE);
+                            tex12.setVisibility(View.VISIBLE);
+                            tex13.setVisibility(View.VISIBLE);
+                            tex14.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            usersStacktemp.pop();
+                            placement1++;
+                            stemp.pop();
+                            s2temp.pop();
+                        }
+                    }
+                }
+                else
+                {
 
+                    if (search_text.getText().toString().equals(""))
+                    {
+                        Toast.makeText(getApplicationContext(),"Empty!",Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                        Toast.makeText(getApplicationContext(),"Error, please check again!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+    public static Stack<Integer> cloneIntegerStack(Stack<Integer> s)
+    {
+        Stack<Integer> newS = new Stack<Integer>();
+        Stack<Integer> tmp = new Stack<Integer>();
+        while (!s.isEmpty())
+            tmp.push(s.pop());
+        while (!tmp.isEmpty())
+        {
+            newS.push(tmp.peek());
+            s.push(tmp.pop());
+        }
+        return newS;
+    }
+    public static Stack<String> cloneStringStack(Stack<String> s)
+    {
+        Stack<String> newS = new Stack<String>();
+        Stack<String> tmp = new Stack<String>();
+        while (!s.isEmpty())
+            tmp.push(s.pop());
+        while (!tmp.isEmpty())
+        {
+            newS.push(tmp.peek());
+            s.push(tmp.pop());
+        }
+        return newS;
+    }
+    public static Stack<Users> cloneUsersStack(Stack<Users> s)
+    {
+        Stack<Users> newS = new Stack<Users>();
+        Stack<Users> tmp = new Stack<Users>();
+        while (!s.isEmpty())
+            tmp.push(s.pop());
+        while (!tmp.isEmpty())
+        {
+            newS.push(tmp.peek());
+            s.push(tmp.pop());
+        }
+        return newS;
+    }
+    public static Stack<LeaderboardsUser> cloneLeaderboardsUserStack(Stack<LeaderboardsUser> s)
+    {
+        Stack<LeaderboardsUser> newS = new Stack<LeaderboardsUser>();
+        Stack<LeaderboardsUser> tmp = new Stack<LeaderboardsUser>();
+        while (!s.isEmpty())
+            tmp.push(s.pop());
+        while (!tmp.isEmpty())
+        {
+            newS.push(tmp.peek());
+            s.push(tmp.pop());
+        }
+        return newS;
     }
     @Override
     public void onBackPressed() {
