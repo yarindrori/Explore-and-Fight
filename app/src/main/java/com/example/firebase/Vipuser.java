@@ -2,20 +2,29 @@ package com.example.firebase;
 
 
 public class Vipuser extends Users{
-    private Boolean Access;
-    public Vipuser(String mail, String password,int coins, int points,String username, Boolean Access)
+    private Boolean access;
+    public Vipuser(String mail, String password,int coins, int points,String username,Boolean access)
     {
         super(mail,password,coins,points,username);
-        this.Access = Access;
+        this.access = access;
     }
     public Boolean getAccess() {
-        return Access;
+        return access;
     }
     public void setAccess(Boolean access) {
-        Access = access;
+        this.access = access;
     }
+
     @Override
     public String toString() {
-        return super.toString();
+        return "Vipuser{" +
+                "access=" + access +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", coins=" + coins +
+                ", points=" + points +
+                ", access=" + access +
+                '}';
     }
 }

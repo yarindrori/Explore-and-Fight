@@ -176,10 +176,13 @@ public class HomeActivity extends AppCompatActivity {
                                                                }
                                                                else
                                                                {
+                                                                   String ii = auth.getCurrentUser().getUid();
+
                                                                    FirebaseDatabase Node = FirebaseDatabase.getInstance();
                                                                    DatabaseReference reference = Node.getReference("Users");
                                                                    Users add = new Users(mail, pass, 0, 0, rl);
-                                                                   reference.child(auth.getCurrentUser().getUid()).setValue(add);
+                                                                   reference.child(ii).setValue(add); // שם בפיירבייס
+                                                                   reference.child(ii).child("access").setValue(false); // vip כי הוא לא false
                                                                    DatabaseReference ref = Node.getReference("Names");
                                                                    ref.child(rl).setValue(rl);
                                                                    DatabaseReference g = FirebaseDatabase.getInstance().getReference("fif").child(auth.getCurrentUser().getUid());

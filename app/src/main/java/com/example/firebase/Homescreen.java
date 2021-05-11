@@ -99,8 +99,9 @@ public class Homescreen extends AppCompatActivity {
         }
         catch (Exception e)
         {}
+
         // מראה שם מוזהב ותג vip
-        DatabaseReference r = FirebaseDatabase.getInstance().getReference("VIP Users").child(id);
+        DatabaseReference r = FirebaseDatabase.getInstance().getReference("Users").child(id);
         r.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

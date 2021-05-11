@@ -15,6 +15,7 @@ public class LeaderboardsWinner extends LeaderboardsUser  {
         this.winner = winner;
     }
 
+
     @Override
     public String toString() {
         return "LeaderboardsWinner{" +

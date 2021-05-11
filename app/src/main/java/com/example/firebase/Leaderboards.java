@@ -35,12 +35,8 @@ public class Leaderboards extends AppCompatActivity {
     private ImageView goback;
     private FirebaseAuth auth;
     private Stack<String> s = new Stack<String>();
-    private Stack<String> svip = new Stack<String>();
     private Stack<Integer> s2 = new Stack<Integer>();
-    private Stack<LeaderboardsUser> leed = new Stack<LeaderboardsUser>();
-    private Stack<LeaderboardsUser> leed2 = new Stack<LeaderboardsUser>();
-    private String dm ;
-    private int a =5;
+    private Stack<Users> usersStack = new Stack<Users>();
     private Boolean f = false;
 
 
@@ -84,50 +80,6 @@ public class Leaderboards extends AppCompatActivity {
         tex12.setVisibility(View.GONE);
         tex13.setVisibility(View.GONE);
         tex14.setVisibility(View.GONE);
-        // שמות כל המשתמשים
-        DatabaseReference users_name = FirebaseDatabase.getInstance().getReference("Users");
-        users_name.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1: snapshot.getChildren())
-                {
-                    String name = snapshot1.getValue().toString();
-                    if (!name.equals("0"))
-                    {
-                        name = name.substring(name.indexOf("me=")+3);
-                        name = name.substring(0, name.indexOf("}"));
-                        Log.d("names are","names are "+ name);
-                        LeaderboardsUser users = new LeaderboardsUser(name,0);
-                        leed.push(users);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        // vip check
-        DatabaseReference rvip = FirebaseDatabase.getInstance().getReference("VIP Users");
-        Query qvip = rvip.orderByChild("points");
-        qvip.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1: snapshot.getChildren())
-                {
-                    String val = snapshot1.getValue().toString();
-                    if (!val.equals("0"))
-                    {
-                        val = val.substring(val.indexOf("e=")+2);
-                        val = val.substring(0, val.indexOf("}"));
-                        svip.push(val);
-                        Log.d("vip","vip is "+ val);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +94,7 @@ public class Leaderboards extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                for (DataSnapshot post: snapshot.getChildren())
                {
+                   // {password=math2323, access=false, mail=e@gmail.com, coins=0, points=22, username=yarin} דאטה
                    String name = post.getValue().toString();
                     if (!name.equals("0"))
                     {
@@ -159,6 +112,40 @@ public class Leaderboards extends AppCompatActivity {
                         s2.push(points);
                         Log.d("points","points "+ points);
                     }
+                   String pass = post.getValue().toString();
+                   if (!pass.equals("0"))
+                   {
+                       pass = pass.substring(pass.indexOf("rd=")+3);
+                       pass = pass.substring(0, pass.indexOf(","));
+                   }
+                   String mail = post.getValue().toString();
+                   if (!mail.equals("0"))
+                   {
+                       mail = mail.substring(mail.indexOf("il=")+3);
+                       mail = mail.substring(0, mail.indexOf(","));
+                   }
+                   String coins = post.getValue().toString();
+                   if (!coins.equals("0"))
+                   {
+                       coins = coins.substring(coins.indexOf("ns=")+3);
+                       coins = coins.substring(0, coins.indexOf(","));
+                   }
+                   String access = post.getValue().toString();
+                   if (!access.equals("0"))
+                   {
+                       access = access.substring(access.indexOf("ss=")+3);
+                       access = access.substring(0,access.indexOf(","));
+                       if (access.equals("true"))
+                       {
+                           Vipuser vipuser = new Vipuser(mail,pass,Integer.parseInt(coins),Integer.parseInt(p),name,true);
+                           usersStack.push(vipuser);
+                       }
+                       else
+                       {
+                           Users user = new Users(mail,pass,Integer.parseInt(coins),Integer.parseInt(p),name);
+                           usersStack.push(user);
+                       }
+                   }
                 }
 
                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(id);
@@ -169,37 +156,17 @@ public class Leaderboards extends AppCompatActivity {
                        {
                            f = true;
                            String y = snapshot.child("username").getValue().toString(); // שם של מי שצריך לבדוק
-                           if(!s.isEmpty() && !s2.isEmpty())
+                           if(!s.isEmpty() && !s2.isEmpty()&& !usersStack.isEmpty())
                            {
-                               while (!leed.isEmpty())
-                               {
-                                   if ((leed.peek().getS()).equals(s.peek())) // אם נמצא מקום 1
-                                   {
-                                       LeaderboardsWinner winner = new LeaderboardsWinner(s.peek(),s2.peek(),true);
-                                       leed2.push(winner);
-                                       leed.pop();
-                                   }
-                                   else
-                                   {
-                                       leed2.push(leed.pop());
-                                   }
-                               }
-                               while (!leed2.isEmpty())
-                               {
-                                   if((leed2.peek()) instanceof LeaderboardsWinner)
-                                   {
-                                       tex1.setTextColor(getResources().getColor(R.color.red));
-                                       leed2.pop();
-                                   }
-                                   else
-                                   {
-                                       leed2.pop();
-                                   }
-                               }
                                if(s.peek().equals(y))
                                {
                                    y1.setVisibility(View.VISIBLE);
                                }
+                               if (usersStack.peek() instanceof Vipuser)
+                               {
+                                   tex1.setTextColor(getResources().getColor(R.color.gold)); // VIP
+                               }
+                               usersStack.pop();
                                tex1.setText(s.pop());
                                tex6.setText("←" + String.valueOf(s2.pop()));
                            }
@@ -207,16 +174,17 @@ public class Leaderboards extends AppCompatActivity {
                            {
                                tex1.setText("Empty!");
                            }
-                           if(!s.isEmpty()&& !s2.isEmpty())
+                           if(!s.isEmpty() && !s2.isEmpty()  && !usersStack.isEmpty())
                            {
                                if (s.peek().equals(y)) // 2
                                {
                                    y2.setVisibility(View.VISIBLE);
                                }
-                               if (svip.contains(s.peek()))
+                               if (usersStack.peek() instanceof Vipuser)
                                {
-                                   tex2.setTextColor(getResources().getColor(R.color.gold));
+                                   tex2.setTextColor(getResources().getColor(R.color.gold)); // VIP
                                }
+                               usersStack.pop();
                                tex2.setText(s.pop());
                                tex7.setText("←" +String.valueOf(s2.pop()));
                            }
@@ -224,16 +192,17 @@ public class Leaderboards extends AppCompatActivity {
                            {
                                tex2.setText("Empty!");
                            }
-                           if(!s.isEmpty()&& !s2.isEmpty())
+                           if(!s.isEmpty()&& !s2.isEmpty() && !usersStack.isEmpty())
                            {
                                if (s.peek().equals(y)) // 3
                                {
                                    y3.setVisibility(View.VISIBLE);
                                }
-                               if (svip.contains(s.peek()))
+                               if (usersStack.peek() instanceof Vipuser)
                                {
-                                   tex3.setTextColor(getResources().getColor(R.color.gold));
+                                   tex3.setTextColor(getResources().getColor(R.color.gold)); // VIP
                                }
+                               usersStack.pop();
                                tex3.setText(s.pop());
                                tex8.setText("←" +String.valueOf(s2.pop()));
                            }
@@ -241,16 +210,17 @@ public class Leaderboards extends AppCompatActivity {
                            {
                                tex3.setText("Empty!");
                            }
-                           if(!s.isEmpty()&& !s2.isEmpty())
+                           if(!s.isEmpty()&& !s2.isEmpty()&& !usersStack.isEmpty())
                            {
                                if (s.peek().equals(y)) // 4
                                {
                                    y4.setVisibility(View.VISIBLE);
                                }
-                               if (svip.contains(s.peek()))
+                               if (usersStack.peek() instanceof Vipuser)
                                {
-                                   tex4.setTextColor(getResources().getColor(R.color.gold));
+                                   tex4.setTextColor(getResources().getColor(R.color.gold)); // VIP
                                }
+                               usersStack.pop();
                                tex4.setText(s.pop());
                                tex9.setText("←" +String.valueOf(s2.pop()));
                            }
@@ -258,16 +228,17 @@ public class Leaderboards extends AppCompatActivity {
                            {
                                tex4.setText("Empty!");
                            }
-                           if(!s.isEmpty()&& !s2.isEmpty())
+                           if(!s.isEmpty()&& !s2.isEmpty()&& !usersStack.isEmpty())
                            {
                                if (s.peek().equals(y)) // 5
                                {
                                    y5.setVisibility(View.VISIBLE);
                                }
-                               if (svip.contains(s.peek()))
+                               if (usersStack.peek() instanceof Vipuser)
                                {
-                                   tex5.setTextColor(getResources().getColor(R.color.gold));
+                                   tex5.setTextColor(getResources().getColor(R.color.gold)); // VIP
                                }
+                               usersStack.pop();
                                tex5.setText(s.pop());
                                tex10.setText("←" +String.valueOf(s2.pop()));
                            }
@@ -276,7 +247,7 @@ public class Leaderboards extends AppCompatActivity {
                                tex5.setText("Empty!");
                            }
                            int placement = 6; // placement
-                           while (!s.isEmpty() && !s2.isEmpty())
+                           while (!s.isEmpty() && !s2.isEmpty()&& !usersStack.isEmpty())
                            {
                                if(s.peek().equals(y))
                                {
@@ -284,10 +255,11 @@ public class Leaderboards extends AppCompatActivity {
                                    tex13.setVisibility(View.VISIBLE);
                                    tex12.setVisibility(View.VISIBLE);
                                    tex14.setVisibility(View.VISIBLE);
-                                   if (svip.contains(s.peek()))
+                                   if (usersStack.peek() instanceof Vipuser)
                                    {
-                                       tex12.setTextColor(getResources().getColor(R.color.gold));
+                                       tex12.setTextColor(getResources().getColor(R.color.gold)); // VIP
                                    }
+                                   usersStack.pop();
                                    tex12.setText(s.pop());
                                    tex13.setText(String.valueOf(placement)+".");
                                    tex14.setText("←" +String.valueOf(s2.pop()));
@@ -296,6 +268,7 @@ public class Leaderboards extends AppCompatActivity {
                                }
                                else
                                {
+                                   usersStack.pop();
                                    placement++;
                                    s.pop();
                                    s2.pop();

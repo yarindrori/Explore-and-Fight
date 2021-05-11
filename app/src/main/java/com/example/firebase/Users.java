@@ -4,7 +4,6 @@ public class Users {
     protected String mail, password, username;
     protected int coins ,points;
     Users(){}
-
     public Users(String mail, String password, int coins, int points, String username) {
         this.mail = mail;
         this.password = password;

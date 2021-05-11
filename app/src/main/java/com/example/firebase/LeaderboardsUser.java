@@ -2,8 +2,8 @@ package com.example.firebase;
 
 
 public class LeaderboardsUser {
-    protected String s;
-    protected Integer s2;
+    protected String s;// שם
+    protected Integer s2; // כמות נקודות
     public LeaderboardsUser(String s, Integer s2)
     {
         this.s = s;
