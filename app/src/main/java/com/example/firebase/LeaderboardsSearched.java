@@ -1,7 +1,6 @@
 package com.example.firebase;
 
 import java.util.Stack;
-
 public class LeaderboardsSearched extends LeaderboardsUser  {
     private Boolean found;
     private Stack<LeaderboardsUser> stack = new Stack<LeaderboardsUser>();

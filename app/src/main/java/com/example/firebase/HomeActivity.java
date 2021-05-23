@@ -32,11 +32,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity {
-    private EditText sign_mail, sign_pass, sign_user;
-    private Button btnSign, btnclearMail, btnclearPass, btnclearUser;
+    private EditText sign_mail;
+    private EditText sign_pass;
+    private EditText sign_user;
+    private Button btnSign;
+    private Button  btnclearMail;
+    private Button btnclearPass;
+    private Button btnclearUser;
     private TextView SignIn;
     private FirebaseAuth auth;
-    private String rl, rn;
+    private String rl;
+    private String rn;
     private CheckBox checkBox;
     private ImageView imageView;
 

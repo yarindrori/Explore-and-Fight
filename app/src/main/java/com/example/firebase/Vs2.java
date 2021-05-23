@@ -29,6 +29,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Vs2 extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
+
     private Boolean flag = false;
     private Boolean flag2 = false;
     private Boolean flag3 = false;

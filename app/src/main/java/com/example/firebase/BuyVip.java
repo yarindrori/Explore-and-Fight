@@ -25,7 +25,14 @@ public class BuyVip extends AppCompatActivity {
     private ImageView goback;
     private FirebaseAuth auth;
     private String id;
-    private Boolean f = false , f1 = false, f2 = false, f3 = false, f4 =false , f5 = false, f6 = false, f7 =false;
+    private Boolean f = false;
+    private Boolean f1 = false;
+    private Boolean f2 = false;
+    private Boolean f3 = false;
+    private Boolean f4 =false ;
+    private Boolean f5 = false;
+    private Boolean f6 = false;
+    private Boolean f7 =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

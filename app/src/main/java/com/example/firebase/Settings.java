@@ -31,7 +31,8 @@ import java.util.Set;
 
 public class Settings extends AppCompatActivity {
     private Button change_name;
-    private Switch music, busy;
+    private Switch music;
+    private Switch busy;
     private ImageView goback;
     private FirebaseAuth auth;
     private String id;

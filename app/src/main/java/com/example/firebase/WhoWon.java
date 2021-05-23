@@ -22,14 +22,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class WhoWon extends AppCompatActivity {
-    private Boolean f = false, f2 = false, f3 = false, f4 = false, f100 = false;
-    private TextView tex1, tex2, whowon;
-    private ImageView win , lose, draw;
+    private Boolean f = false;
+    private Boolean f2 = false;
+    private Boolean f3 = false;
+    private Boolean f4 = false;
+    private Boolean f100 = false;
+    private TextView tex1;
+    private TextView tex2;
+    private TextView whowon;
+    private ImageView win;
+    private ImageView lose;
+    private ImageView draw;
     private ProgressBar bar;
     private Button back;
     private FirebaseAuth auth;
-    private String score, score2 , total;
-    private int p_win = 25,c_win = 10, p_tie = 10,c_tie =5,p_lose = 5, c_lose = 1;
+    private String score;
+    private String score2;
+    private String total;
+    private int p_win = 25;
+    private int c_win = 10;
+    private int p_tie = 10;
+    private int c_tie =5;
+    private int p_lose = 5;
+    private int c_lose = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

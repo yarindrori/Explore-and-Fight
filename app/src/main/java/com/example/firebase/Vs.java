@@ -29,7 +29,6 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Vs extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
-
     private LatLng l1 = new LatLng(13.41241963977408,103.8681012543761); // Cambodia
     private LatLng l2 = new LatLng(-33.85803087516396,151.21450292817096); // Sydney
     private LatLng l3 = new LatLng(48.86069185564439,2.2908392866548306); // Paris

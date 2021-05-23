@@ -21,7 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Shop extends AppCompatActivity {
-    private ImageView vip, fif;
+    private ImageView vip;
+    private ImageView fif;
     private TextView coins;
     private Button goback;
     private FirebaseAuth auth;

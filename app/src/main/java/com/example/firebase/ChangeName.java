@@ -29,7 +29,8 @@ public class ChangeName extends AppCompatActivity {
     private Button confirm;
     private EditText edit_name;
     private String name = null;
-    private Boolean f= false, f2 = false, f3 = false ,f4 = false;
+    private Boolean f= false;
+    private Boolean f2 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

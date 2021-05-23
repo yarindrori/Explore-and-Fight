@@ -33,8 +33,25 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Leaderboards extends AppCompatActivity {
-    private TextView tex1, tex2 , tex3 , tex4 , tex5 , tex6 , tex7 , tex8 , tex9 , tex10 ,tex11,tex12,tex13, tex14;
-    private TextView y1,y2,y3,y4,y5;
+    private TextView tex1;
+    private TextView tex2;
+    private TextView tex3;
+    private TextView tex4;
+    private TextView tex5;
+    private TextView tex6;
+    private TextView tex7;
+    private TextView tex8;
+    private TextView tex9;
+    private TextView tex10;
+    private TextView tex11;
+    private TextView tex12;
+    private TextView tex13;
+    private TextView tex14;
+    private TextView y1;
+    private TextView y2;
+    private TextView y3;
+    private TextView y4;
+    private TextView y5;
     private EditText search_text;
     private Button search;
     private Button clear;

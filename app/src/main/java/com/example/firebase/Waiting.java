@@ -40,6 +40,7 @@ public class Waiting extends AppCompatActivity {
     private DatabaseReference ref;
     private FirebaseAuth auth;
     private String id2;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

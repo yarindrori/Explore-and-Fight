@@ -1,6 +1,5 @@
 package com.example.firebase;
 
-
 public class LeaderboardsUser {
     protected String s;// שם משתמש
 

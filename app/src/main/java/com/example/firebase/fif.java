@@ -27,7 +27,9 @@ public class fif extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView tex;
     private String id;
-    private Boolean f = false , f1 = false, f2 = false, f3 = false, f4 =false , f5 = false, f6 = false;
+    private Boolean f = false;
+    private Boolean f1 = false;
+    private Boolean f6 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

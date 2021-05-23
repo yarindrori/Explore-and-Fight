@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener stateListener;
     private CheckBox checkBox;
     private ImageView imageView;
-    private Boolean f = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

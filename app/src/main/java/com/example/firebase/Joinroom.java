@@ -25,9 +25,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Stack;
 
 public class Joinroom extends AppCompatActivity {
-    private Boolean f1 = false, f2 = false;
-    private Button joincode, goback;
-    private String code, yo , yo2;
+    private Boolean f1 = false;
+    private Boolean f2 = false;
+    private Button joincode;
+    private Button goback;
+    private String code;
+    private String yo;
+    private String yo2;
     private EditText editText;
     private FirebaseAuth auth;
     private String id;

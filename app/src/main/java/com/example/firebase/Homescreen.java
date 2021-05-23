@@ -30,13 +30,17 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Homescreen extends AppCompatActivity {
     private Button logout;
-    private ImageView vs, ld, shop, vop, settings;
+    private ImageView vs;
+    private ImageView ld;
+    private ImageView shop;
+    private ImageView vop;
+    private ImageView settings;
     private FirebaseAuth auth;
     private DatabaseReference ref;
     private TextView tx;
     private String name = null;
     private Boolean f = false;
-    private Boolean f1 = false, f2 = false;
+    private Boolean f1 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);

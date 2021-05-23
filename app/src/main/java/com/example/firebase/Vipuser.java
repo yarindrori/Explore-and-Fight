@@ -1,6 +1,5 @@
 package com.example.firebase;
 
-
 public class Vipuser extends Users{
     private Boolean access;
     public Vipuser(String mail, String password,int coins, int points,String username,Boolean access)

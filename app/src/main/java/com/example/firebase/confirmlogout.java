@@ -21,7 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class confirmlogout extends AppCompatActivity {
-    private Button confirm_logout, cancel;
+    private Button confirm_logout;
+    private Button cancel;
     private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 public class Createorjoin extends AppCompatActivity {
-    private Button create, join, goback;
+    private Button create;
+    private Button join;
+    private Button goback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
