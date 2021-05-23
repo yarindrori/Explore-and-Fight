@@ -27,9 +27,13 @@
         android:id="@+id/textView3"
         android:layout_width="390dp"
         android:layout_height="270dp"
-        android:text="הפרויקט בשם 'Explore and fight' הוא משחק אונליין בו נדרשים 2 שחקנים לענות על השאלה שמופיעה. (השאלות בקשר למקומות בעולם, ואזורים מפורסמים)."
+        android:text="	כאשר המשחק מתחיל תוכלו להסתובב או ללכת בעזרת החצים במקום בו אתם נמצאים,
+המטרה שלכם היא לזהות היכן אתם נמצאים – וכאשר הזמן שמופיע בצד המסך מגיע ל 0, תועברו לשאלה לגבי איפה הייתם. בשאלה אפשר לנחש אם לא יודעים, ולהיעזר ב 50/50
+(אם יש ברשותכם)
+במשחק אין חשיבות למי עונה ראשון, קחו את הזמן ורק שתהיו בטוחים בתשובה תענו . כמובן יש טיימר אשר מגביל את הזמן – חובה לענות לפני שהוא נגמר!
+"
         android:textColor="@color/black"
-        android:textSize="34sp"
+        android:textSize="19sp"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
